@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 if($_GET['type'] == 'agenda'){ //Retorna a agenda de shows
 	include 'get_agenda.php';
