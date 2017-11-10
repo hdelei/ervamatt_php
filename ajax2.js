@@ -75,8 +75,10 @@ function updateAgenda(xhttp){
 }
 
 function updateHistoria(xhttp){
-	//var historia = JSON.parse(xhttp.responseText);
-	//document.getElementById('hist').innerHTML = historia[0].text;
+	var historia = JSON.parse(xhttp.responseText);
+	historia[0].text = '<p class="recuo">' + historia[0].text + '</p>';
+	$("#historia_div").html(historia[0].text);
+	//document.getElementById('historia_div').innerHTML = historia[0].text;
 }
 
 function updateYoutube(xhttp){
