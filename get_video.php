@@ -11,7 +11,15 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "SELECT video_key from youtube ORDER BY id DESC LIMIT 0 , 15;";
+//show latest added videos first
+$sql = "SELECT video_key FROM youtube ORDER BY RAND() LIMIT 0 , 15;";
+
+//show latest added videos first
+//$sql = "SELECT video_key FROM youtube ORDER BY id DESC LIMIT 0 , 15;";
+
+//show newest videos added first
+//$sql = "SELECT video_key from youtube ORDER BY id LIMIT 0 , 15;";
+
 
 $result = $conn->query($sql);
 

@@ -8,12 +8,11 @@ function loadDynamicContent(url, cFunction){
 	var xhttp;
 	if (window.XMLHttpRequest) { //For most of modern web browsers
 		xhttp = new XMLHttpRequest();
-		// document.getElementById('sched').innerHTML = '<h4>Atualizando historia...</h4>';
-		// document.getElementById('hist').innerHTML = '<h4>Atualizando historia...</h4>';
-		// document.getElementById('video').innerHTML = '<h4>Atualizando historia...</h4>';
+		waitMessage(url);	
 	}
 	else if (window.ActiveXObject) { // for IE5, IE6
 		xhttp = new ActiveXObject("Msxml2.XMLHTTP");
+		waitMessage(url);
 		// document.getElementById('sched').innerHTML = '<h4>Atualizando historia...</h4>';
 		// document.getElementById('hist').innerHTML = '<h4>Atualizando historia...</h4>';
 		// document.getElementById('video').innerHTML = '<h4>Atualizando historia...</h4>';
@@ -21,7 +20,7 @@ function loadDynamicContent(url, cFunction){
 	else {// for stone age web browsers
 		// document.getElementById('sched').innerHTML = "<h4>Seu navegador não suporta este recurso</h4>";
 		// document.getElementById('hist').innerHTML = "<h4>Seu navegador não suporta este recurso</h4>";
-		// document.getElementById('video').innerHTML = "<h4>Seu navegador não suporta este recurso</h4>";
+		document.getElementById('player').innerHTML = "<h4>Seu navegador não suporta este recurso</h4>";
 	}		
 
 	xhttp.onreadystatechange = function(){
@@ -33,7 +32,19 @@ function loadDynamicContent(url, cFunction){
 	xhttp.send();
 }
 
-function updateAgenda(xhttp){
+function waitMessage(url){
+	if(url.indexOf('agenda') !== -1){
+		document.getElementById('agenda_title').innerHTML = 'Carregando Agenda...';
+	}
+	else if(url.indexOf('historia') !== -1){
+		document.getElementById('historia_title').innerHTML = 'Carregando História...';
+	}
+	else if(url.indexOf('youtube') !== -1){
+		document.getElementById('videos_title').innerHTML = 'Carregando Vídeos...';
+	}
+}
+
+function updateAgenda(xhttp){	
 	var agenda = JSON.parse(xhttp.responseText);
 	
 	var dataSlide = '<li data-target="#myCarousel" data-slide-to="0" class="active"></li>';
@@ -72,16 +83,24 @@ function updateAgenda(xhttp){
 	
 	document.getElementById('olist').innerHTML = dataSlide;	
 	$('#olist').after(carousel);
+	
+	document.getElementById('agenda_title').innerHTML = 'Agenda';
 }
 
 function updateHistoria(xhttp){
 	var historia = JSON.parse(xhttp.responseText);
 	historia[0].text = '<p class="recuo">' + historia[0].text + '</p>';
 	$("#historia_div").html(historia[0].text);
-	//document.getElementById('historia_div').innerHTML = historia[0].text;
+	
+	document.getElementById('historia_title').innerHTML = 'História';
 }
 
+var video = [];
 function updateYoutube(xhttp){
-	//var youtube = JSON.parse(xhttp.responseText);
-	//document.getElementById('video').innerHTML = youtube[0].video_key;
+	json_video = JSON.parse(xhttp.responseText);	
+	
+	for (v in json_video){
+		video.push(json_video[v].video_key);		
+	}
+	document.getElementById('videos_title').innerHTML = 'Vídeos';
 }

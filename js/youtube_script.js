@@ -1,5 +1,5 @@
 	//var video = ['8hZ2nIWfN5A', 'NfYvYZsG-_s', 'nMUfsQEv4sU'];
-    var video = ['8hZ2nIWfN5A'];
+    //var video = ['8hZ2nIWfN5A'];
 	var actualVideo = 0;
 	
 	// 2. This code loads the IFrame Player API code asynchronously.
@@ -19,8 +19,7 @@
           width: '100%',		  
           videoId: video[0],
 		  playerVars: {'rel': 0}
-        });
-		
+        });		
       }
 	  
       function stopVideo() {
@@ -36,8 +35,7 @@
 		else if (actualVideo <= video.length){
 			actualVideo = 0;
 			player.cueVideoById(video[actualVideo]);
-		}
-		
+		}		
 	}
 	
 	function antVideo(){
@@ -48,7 +46,7 @@
 		}
 		else if (actualVideo < 0){
 			actualVideo = video.length - 1;
-			player.cueVideoById(video[actualVideo]);
+			player.cueVideoById(video[actualVideo]);			
 		}
 	}
 	
