@@ -32,10 +32,19 @@ $agenda_empty = true;
 //check if results > 0 to fill array
 if(mysqli_num_rows($result) > 0){
 	$agenda_empty = false;
-	while($r = mysqli_fetch_assoc($result)){
-		$agenda_array[] = $r;
+	while($r = mysqli_fetch_assoc($result)){		
+		$agenda_array[] = $r;		
 	}
 }
+
+//Format date and time for Brazil
+$len = count($agenda_array);
+for($i = 0; $i < $len; $i++){	
+	$agenda_array[$i]["date"] = date('d/m/Y', strtotime($agenda_array[$i]["date"]));	
+	$agenda_array[$i]["time"] = date('H:i', strtotime($agenda_array[$i]["time"]));	
+}
+
+//$agenda_array[0]["date"] = "10/03/1981";
 
 //echo $agenda_empty;
 
@@ -51,7 +60,8 @@ if(mysqli_num_rows($result) > 0){
 //echo $object[0]->address . "<br>";
 
 //printa o valor do array
-//echo $agenda_array[0]["name"];
+//$d = strtotime($agenda_array[0]["date"]);
+//$agenda_array[0]["date"] = date('d-m-Y', $d);
 
 $conn->close();
 
