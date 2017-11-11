@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -143,11 +143,11 @@
 
     <div id="section2" class="container-fluid">    
         <div style="height:30px;"></div>  
-        <div style="max-width:1200px; text-align:center;"><h1 id="historia_title">História</h1></div>
+        <div style="max-width:1200px; text-align:center;"><h1 >História</h1></div>
 
         <div id="historia_div">
             
-            <!--<p class="recuo"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc at dictum ligula, in condimentum arcu. Nam condimentum, ante eu auctor viverra, risus mi aliquet turpis, a tincidunt nisi leo nec purus. Quisque dapibus aliquam urna, ac scelerisque odio ultricies vitae. Cras tempus cursus interdum. Suspendisse eget libero lorem. Duis viverra, magna eget viverra varius, sem mi laoreet justo, vitae aliquam neque tellus et purus. Sed vel nunc pulvinar, commodo libero eu, accumsan magna. Praesent sed iaculis erat, sed viverra nulla. Proin congue egestas cursus. Sed sed orci ut eros pulvinar aliquet id quis tellus. Nam neque risus, faucibus nec tellus a, lacinia porttitor quam. Suspendisse nec lacus scelerisque mi tincidunt pellentesque eu id nisi.</p>
+            <p class="recuo"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc at dictum ligula, in condimentum arcu. Nam condimentum, ante eu auctor viverra, risus mi aliquet turpis, a tincidunt nisi leo nec purus. Quisque dapibus aliquam urna, ac scelerisque odio ultricies vitae. Cras tempus cursus interdum. Suspendisse eget libero lorem. Duis viverra, magna eget viverra varius, sem mi laoreet justo, vitae aliquam neque tellus et purus. Sed vel nunc pulvinar, commodo libero eu, accumsan magna. Praesent sed iaculis erat, sed viverra nulla. Proin congue egestas cursus. Sed sed orci ut eros pulvinar aliquet id quis tellus. Nam neque risus, faucibus nec tellus a, lacinia porttitor quam. Suspendisse nec lacus scelerisque mi tincidunt pellentesque eu id nisi.</p>
 
             <p class="recuo">Morbi lorem metus, ullamcorper id nisi nec, tempus eleifend nisl. Etiam sodales sit amet sapien eget accumsan. Etiam sed aliquet enim. Pellentesque laoreet dignissim imperdiet. Aliquam erat volutpat. Duis finibus, ipsum a posuere gravida, magna mauris luctus dui, in maximus tortor erat eget urna. Nullam faucibus bibendum mattis. Nunc ac pellentesque metus. Phasellus ac feugiat eros, quis tincidunt massa. Praesent aliquet pharetra sapien, quis congue enim sodales in. Donec et varius nisl. Pellentesque a risus mauris. Nam eget ipsum at diam ultricies euismod.</p>
 
@@ -155,7 +155,7 @@
 
             <p class="recuo">Ut vitae rhoncus magna. Pellentesque elementum venenatis metus a molestie. Nullam posuere felis nec eros dapibus imperdiet. Nulla a ex eu nulla vestibulum pellentesque. Fusce risus mauris, sodales non purus vitae, iaculis euismod enim. Nulla ex arcu, egestas pretium purus eget, eleifend congue mi. Morbi leo sem, lacinia nec magna egestas, dictum suscipit urna. Sed quis purus fringilla lacus tincidunt fermentum. Cras mollis lacus vitae leo iaculis rhoncus. Vestibulum sollicitudin odio eget elit efficitur, vel dapibus eros convallis. Sed sed lacus viverra nisl finibus consequat quis ac velit.</p>
 
-            <p class="recuo">Etiam nec hendrerit urna. Mauris pharetra turpis lorem, nec pellentesque ipsum dictum sed. Nunc sapien quam, molestie et posuere sed, feugiat mollis lacus. Integer vitae velit vel nunc volutpat scelerisque nec sit amet magna. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla semper at nulla ac interdum. Proin elit diam, tincidunt in rutrum at, cursus ullamcorper nisi. Sed ut mauris tristique mi consectetur semper. Curabitur auctor felis id varius feugiat. Nunc viverra arcu sem, a venenatis est condimentum in. Etiam sed nisi nec urna volutpat dignissim. Praesent dolor ipsum, tristique ut lacinia nec, suscipit vel mauris.</p>-->
+            <p class="recuo">Etiam nec hendrerit urna. Mauris pharetra turpis lorem, nec pellentesque ipsum dictum sed. Nunc sapien quam, molestie et posuere sed, feugiat mollis lacus. Integer vitae velit vel nunc volutpat scelerisque nec sit amet magna. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla semper at nulla ac interdum. Proin elit diam, tincidunt in rutrum at, cursus ullamcorper nisi. Sed ut mauris tristique mi consectetur semper. Curabitur auctor felis id varius feugiat. Nunc viverra arcu sem, a venenatis est condimentum in. Etiam sed nisi nec urna volutpat dignissim. Praesent dolor ipsum, tristique ut lacinia nec, suscipit vel mauris.</p>
         </div>
     </div>
 
@@ -167,35 +167,17 @@
         </div>
             <div class="playlist" style="text-align:center;margin:auto; max-width:700px; height:365px;">
                 
-                <iframe id="souncloudframe" style="margin:auto; display:block; width:100%;"  height="362" scrolling="no" frameborder="no"  src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/301895548&amp;color=ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=false&amp;show_user=false&amp;show_reposts=false"></iframe></div>
+                <iframe style="margin:auto; display:block; width:100%;"  height="362" scrolling="no" frameborder="no"  src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/301895548&amp;color=ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=false&amp;show_user=false&amp;show_reposts=false"></iframe></div>
             
         </div>
         
 		<div id="section4" class="container-fluid">        
         <div class="container">
         <div style="height:30px;"></div>
-        <div style="margin:auto;max-width:130px;">
-		<h1 id="agenda_title">Agenda</h1></div>
+        <div style="margin:auto;max-width:130px;"><h1>Agenda</h1></div>
 		
 		<!--Inicio da agenda estilo Carousel-->
-		<div id="myCarousel" class="carousel slide" data-ride="carousel" style="margin:auto; max-width:300px; border:solid 1px">
-		<ol id="olist" class="carousel-indicators">		
-		
-		<!--<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-		<li data-target="#myCarousel" data-slide-to="1"></li>-->
-		
-		</ol>		   
-		
-		<!-- Left and right controls -->
-        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-          <span class="glyphicon glyphicon-chevron-left"></span>
-          <span class="sr-only">Previous</span></a>
-        <a class="right carousel-control" href="#myCarousel" data-slide="next">
-          <span class="glyphicon glyphicon-chevron-right"></span>
-          <span class="sr-only">Next</span>
-        </a>
-		
-		</div>
+        <?php include 'agenda_carousel.php'; ?>		
 		<!--Fim da agenda estilo carousel-->
 		
 		</div>
@@ -206,7 +188,7 @@
         <!--Inicio da agenda estilo Carousel-->
       <div class="container" style="max-width:660px;">
         <div style="margin:auto;max-width:130px;">
-        <h1 id="videos_title">Vídeos</h1>
+        <h1>Vídeos</h1>
 
         </div>
 
@@ -365,19 +347,30 @@
     }
     </script>
 	
+	<!-- Get the video array for youtube api -->
+	<?php		
+		$video = array('8hZ2nIWfN5A', 'IYZZUoiqxBk');
+	?>	
+	<script type="text/javascript">
+	var video = <?php echo json_encode($video); ?>;	
+	</script>
+	<!-- End of array for youtube api -->
+    
     <!-- ElastSlide javascript -->
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <!--<script type="text/javascript" src="dv_js/jquery.min.1.7.1.js"></script>-->
 	<script type="text/javascript" src="dv_js/jquery.tmpl.min.js"></script>
 	<script type="text/javascript" src="dv_js/jquery.easing.1.3.js"></script>
 	<script type="text/javascript" src="dv_js/jquery.elastislide.js"></script>
-	<script type="text/javascript" src="dv_js/gallery.js"></script>    
-	<script type="text/javascript" src="js/hide_menu.js"></script>
+	<script type="text/javascript" src="dv_js/gallery.js"></script>
+    <script src="js/youtube_script.js"></script>
+	<script src="js/hide_menu.js"></script>
 	
-	<!-- Make all agenda, historia and videos requests -->
-	<script type="text/javascript" src="ajax2.js"></script>
-	<!-- Load Youtube player -->
-	<script type="text/javascript" src="js/youtube_script.js"></script>
+	<script>
+	//var del_sc_button  = document.getElementsByClassName("mobilePrestitial__deeplink sc-button sc-button-large sc-button-cta sc-font-light");
+	//del_sc_button[0].parentNode.removeChild(del_sc_button[0]);
+	</script>
 	
+
 </body>
 </html>

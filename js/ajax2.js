@@ -1,8 +1,8 @@
-loadDynamicContent("data.php?type=agenda", updateAgenda);
+loadDynamicContent("phpaux/data.php?type=agenda", updateAgenda);
 
-loadDynamicContent("data.php?type=historia", updateHistoria);
+loadDynamicContent("phpaux/data.php?type=historia", updateHistoria);
 
-loadDynamicContent("data.php?type=youtube", updateYoutube);
+loadDynamicContent("phpaux/data.php?type=youtube", updateYoutube);
 
 function loadDynamicContent(url, cFunction){
 	var xhttp;
@@ -12,14 +12,11 @@ function loadDynamicContent(url, cFunction){
 	}
 	else if (window.ActiveXObject) { // for IE5, IE6
 		xhttp = new ActiveXObject("Msxml2.XMLHTTP");
-		waitMessage(url);
-		// document.getElementById('sched').innerHTML = '<h4>Atualizando historia...</h4>';
-		// document.getElementById('hist').innerHTML = '<h4>Atualizando historia...</h4>';
-		// document.getElementById('video').innerHTML = '<h4>Atualizando historia...</h4>';
+		waitMessage(url);		
 	}
 	else {// for stone age web browsers
-		// document.getElementById('sched').innerHTML = "<h4>Seu navegador não suporta este recurso</h4>";
-		// document.getElementById('hist').innerHTML = "<h4>Seu navegador não suporta este recurso</h4>";
+		document.getElementById('sched').innerHTML = "<h4>Seu navegador não suporta este recurso</h4>";
+		document.getElementById('hist').innerHTML = "<h4>Seu navegador não suporta este recurso</h4>";
 		document.getElementById('player').innerHTML = "<h4>Seu navegador não suporta este recurso</h4>";
 	}		
 
