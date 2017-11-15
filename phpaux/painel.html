@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <title>ERVA MATT ADMIN PAINEL</title>
 <head>
+<meta charset="utf-8">       
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="/css/adm.css">
 <link rel="stylesheet" href="/css/adm-theme-teal.css">
@@ -9,19 +10,16 @@
     
 <style>
     #pic_slide {        
-        height: 85px;
+        max-height: 260px;
+		max-width:96%;
         background-color: gainsboro;
-        margin: 5px;
-        padding: 2px;
-        margin-left:0;
-        margin-top:0;
+        margin: 5px;        
         overflow: auto;
-        white-space: nowrap;
-        overflow-y: hidden;        
+		padding: 5px;
     }
     
     #pic_slide > div {
-            display: inline-block;            
+        display: inline-block;    
         }
     #pic_name {
         width: auto;
@@ -30,42 +28,51 @@
     }
     .sl_thumb{
         width: 60px; 
-        height: 60px; 
-        background-color: blueviolet;         
-        margin:2px;        
+        height: 60px;
+		margin-bottom:5px;
+    }
+	.thumb_a {
+        max-width: 100%;
+        max-height: 100%;    
+		opacity: 0.8;	
+		
+    }
+    .thumb_a:hover {
+     opacity:1;	 
+     transition:1s;
     }
     
     #form_agenda, #preview_agenda {
         display:inline-block;
         padding:5px;                
-        background-color: gainsboro;
+        background-color: #eaebed;
         margin-left: 0;
         margin-right: 10px;
         margin-bottom: 5px;
         border: 1px solid lightgray;
         color:gray;    
-        overflow: auto;        
+        /*overflow: auto; */
+		flex: 1;
     }    
     #show_list {
-        height: 262px;
+        max-height: 278px;		
         padding:5px;                
-        background-color: gainsboro;
+        background-color: #eaebed;
         margin-left: 0;
         margin-right: 3px;
         margin-bottom: 5px;
         border: 1px solid lightgray;
         color:gray;    
-        overflow: auto;
-        width: 272px;
+        overflow-x: auto;
+        min-width: 260px;		
+		flex: 1;		
     }
-    .thumb_a {
-        max-width: 100%;
-        max-height: 100%;                
-    }
-    /*.thumb_a:hover {
-        position:absolute;
-        max-width: 200px;               
-    }*/
+	@media screen and (max-width:890px) { 
+		#show_list {			
+			min-width:250px;
+		}
+	}
+    
     #agenda_container{
         display:flex;
         flex-wrap: wrap;
@@ -80,11 +87,11 @@
 
 <div class="w3-bar w3-black w3-center">
   <a class="w3-bar-item w3-button" style="width:33.33%" href="javascript:void(0)" onclick="openNav('nav01')">
-  <i class="fa fa-bars w3-xlarge"></i></a>
+  <i class="fa fa-bars w3-xlarge"></i></a>  
+  <a class="w3-bar-item w3-button" style="width:33.33%" href="javascript:void(0)" onclick="openNav('nav02')">
+  <i class="fa fa-upload w3-xlarge"></i></a>
   <a class="w3-bar-item w3-button" style="width:33.33%" href="javascript:void(0)" onclick="openNav('nav03')">
   <i class="fa fa-file w3-xlarge"></i></a>
-  <a class="w3-bar-item w3-button" style="width:33.33%" href="javascript:void(0)" onclick="openNav('nav02')">
-  <i class="fa fa-camera w3-xlarge"></i></a>
 </div>
 
 <div id="nav01" class="w3-bar-block">
@@ -96,9 +103,45 @@
 </div>
 
 <div id="nav02">
-  <a class="w3-bar-item w3-button" target="_blank" href="tryw3css_templates_black.htm"><img src="img_demo_black.png" style="width:100%;"></a>
+	<div style="padding:5px">
+	Selecione uma imagem:
+	</div>
+	
+  <!--<a class="w3-bar-item w3-button" target="_blank" href="tryw3css_templates_black.htm"><img src="/img/agenda/1.jpg" style="width:100%;"></a>
   <a class="w3-bar-item w3-button" target="_blank" href="tryw3css_examples_album.htm"><img src="img_demo_summer.jpg" style="width:100%;"></a>
-  <a class="w3-bar-item w3-button" target="_blank" href="tryw3css_examples_blog.htm"><img src="img_demo_blog.jpg" style="width:100%;"></a>
+  <a class="w3-bar-item w3-button" target="_blank" href="tryw3css_examples_blog.htm"><img src="img_demo_blog.jpg" style="width:100%;"></a>-->
+  
+  <div id="pic_slide">
+        <div class="sl_thumb"><img class="thumb_a" src="/img/agenda/1.jpg"></div>
+        <div class="sl_thumb"><img class="thumb_a" src="/img/agenda/2.jpg"></div>
+        <div class="sl_thumb"><img class="thumb_a" src="/img/agenda/3.jpg"></div>
+        <div class="sl_thumb"><img class="thumb_a" src="/img/agenda/1.jpg"></div>
+        <div class="sl_thumb"><img class="thumb_a" src="/img/agenda/2.jpg"></div>
+        <div class="sl_thumb"><img class="thumb_a" src="/img/agenda/3.jpg"></div>
+        <div class="sl_thumb"><img class="thumb_a" src="/img/agenda/1.jpg"></div>
+        <div class="sl_thumb"><img class="thumb_a" src="/img/agenda/2.jpg"></div>
+        <div class="sl_thumb"><img class="thumb_a" src="/img/agenda/3.jpg"></div>
+        <div class="sl_thumb"><img class="thumb_a" src="/img/agenda/1.jpg"></div>
+        <div class="sl_thumb"><img class="thumb_a" src="/img/agenda/2.jpg"></div>
+        <div class="sl_thumb"><img class="thumb_a" src="/img/agenda/3.jpg"></div>
+        <div class="sl_thumb"><img class="thumb_a" src="/img/agenda/1.jpg"></div>
+        <div class="sl_thumb"><img class="thumb_a" src="/img/agenda/2.jpg"></div>
+        <div class="sl_thumb"><img class="thumb_a" src="/img/agenda/3.jpg"></div>
+        <div class="sl_thumb"><img class="thumb_a" src="/img/agenda/1.jpg"></div>
+        <div class="sl_thumb"><img class="thumb_a" src="/img/agenda/2.jpg"></div>
+        <div class="sl_thumb"><img class="thumb_a" src="/img/agenda/3.jpg"></div>
+    </div>
+	
+	<div style="padding:5px">
+	Ou envie uma imagem nova: <p>
+	<form id="upIMage" method="post" enctype="multipart/form-data" action="recebeUpload.php">		
+		<a id="btChoose" class="w3-button w3-theme-d5 w3-hover-green" name="arquivo" type="file">Selecionar</a>
+		<input name="arquivo" type="file" style="display:none;"/><p>		
+		<input type="submit" value="Upload" style="display:none;" />
+		<a id="btUpload" class="w3-button w3-theme-d5 w3-hover-green" type="submit">Upload</a>
+	</form>
+	</div>
+	
 </div>
 
 <div id="nav03">
@@ -133,10 +176,7 @@
 <div id="agenda" class="w3-container w3-padding-large w3-section w3-light-grey">
   <h1 class="w3-jumbo">Agenda</h1>
   <p class="w3-large">Cadastre seus próximos shows</p>
-  <a class="w3-button w3-theme w3-hover-white" onclick="addShow()">Incluir</a>
-  <a class="w3-button w3-theme-d4 w3-hover-white" onclick="updateShow()">Atualizar</a>
-  <a class="w3-button w3-theme-red w3-hover-white" onclick="deleteShow()">Deletar</a>
-    <a class="w3-button w3-theme-d1 w3-hover-white" href="javascript:void(0)" onclick="w3_open();openNav('nav02')">Upload Foto</a>
+  
   <p class="w3-large">
   <p><div id="agenda_container">
     <div id="form_agenda">
@@ -148,7 +188,7 @@
         <!--<input type="file" name="pic" accept="image/*">-->
     </div>
     <div id="preview_agenda">
-        <img id="img_large" style="padding-left:5px;max-width: 255px;" src="/img/agenda/empty.jpg">
+        <img id="img_large" style="padding-left:5px;max-width: 255px;margin-left:auto;margin-right:auto;display:block;" src="/img/agenda/empty.jpg">
         <br>                
     </div>
     
@@ -168,10 +208,16 @@
         </ul>
         <br>                
     </div>
+	
+	<p>
+	<a class="w3-button w3-theme w3-hover-white" onclick="addShow()">Incluir</a>
+	<a class="w3-button w3-theme-d4 w3-hover-white" onclick="updateShow()">Atualizar</a>
+	<a class="w3-button w3-theme-red w3-hover-white" onclick="deleteShow()">Deletar</a>
+    <a class="w3-button w3-theme-d1 w3-hover-white" href="javascript:void(0)" onclick="w3_open();openNav('nav02')">Foto</a>
     
   </div>
     
-    <div id="pic_slide">
+    <!--<div id="pic_slide">
         <div class="sl_thumb"><img class="thumb_a" src="/img/agenda/1.jpg"></div>
         <div class="sl_thumb"><img class="thumb_a" src="/img/agenda/2.jpg"></div>
         <div class="sl_thumb"><img class="thumb_a" src="/img/agenda/3.jpg"></div>
@@ -190,7 +236,7 @@
         <div class="sl_thumb"><img class="thumb_a" src="/img/agenda/1.jpg"></div>
         <div class="sl_thumb"><img class="thumb_a" src="/img/agenda/2.jpg"></div>
         <div class="sl_thumb"><img class="thumb_a" src="/img/agenda/3.jpg"></div>
-    </div>
+    </div>-->
   <!--<a class="w3-button w3-theme w3-hover-white" onclick="clearPicName()">sem imagem</a>-->
 </div>
 
@@ -267,13 +313,17 @@ w3CodeColor();
 <script>
 //Change image on click perform
 var def = $('#img_large').attr('src');
-$('.thumb_a').click(function()
-{
+$('.thumb_a').click(function(){
     var imgName = $(this).attr('src');
     def = imgName;
     $('#img_large').attr('src', imgName);
     imgName = imgName.split('\/');    
-    $('#pic_text').val(imgName[imgName.length-1]);    
+    $('#pic_text').val(imgName[imgName.length-1]);
+	//blink color of background
+	setTimeout(function(){
+		$('#pic_text').css('background-color', 'white');;
+	}, 1200);
+	$('#pic_text').css('background-color', '#4dff4d');
 });
     
 //Change image hover effect
@@ -282,6 +332,7 @@ $('.thumb_a').hover(function(){
     $('#img_large').attr('src', img1);
     }, function(){    
     $('#img_large').attr('src', def);
+	
 });
 
 function addShow(){
@@ -300,7 +351,36 @@ var day = ("0" + now.getDate()).slice(-2);
 var month = ("0" + (now.getMonth() + 1)).slice(-2);
 var today = now.getFullYear()+"-"+(month)+"-"+(day);
 $('#datePicker').val(today);
+
+//Upload de imagens
+$('input[name=arquivo]').change(function() {
+   simple_name = $(this).val().split('\\').pop(); 
+   $('#btChoose').text(simple_name);
+});
+$('#btChoose').click(function() {
+    $('input[name=arquivo]').click();
+});
+
+$('#btUpload').click(function() {
+    $('input[type=submit]').click();
+});
     
 </script>
+<script src="http://malsup.github.com/jquery.form.js"></script> 
+<script> 
+	//ENVIAR IMAGEM DE MODO ASSINCRONO COM PLUGIN
+	//FALTA TRATAR O RESPONSE TEXT
+
+    // wait for the DOM to be loaded 
+    $(document).ready(function() { 
+        // bind 'myForm' and provide a simple callback function 
+        $('#upIMage').ajaxForm({                 
+			complete: function(xhr) {
+				window.alert(xhr.responseText);
+			}
+        }); 
+    });
+</script> 
+
 </body>
 </html> 
