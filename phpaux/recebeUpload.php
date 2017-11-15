@@ -50,7 +50,7 @@ if ( isset( $_FILES[ 'arquivo' ][ 'name' ] ) && $_FILES[ 'arquivo' ][ 'error' ] 
     // Somente imagens, .jpg;.jpeg;.gif;.png
     // Aqui eu enfileiro as extensões permitidas e separo por ';'
     // Isso serve apenas para eu poder pesquisar dentro desta String
-    if ( strstr ( '.jpg;.jpeg;.gif;.png', $extensao ) ) {
+    if (strstr('.jpg;.jpeg;.gif;.png', $extensao)){
         
 		// Concatena a pasta com o nome
         $destino = '../img/agenda/' . $nome;
@@ -67,8 +67,7 @@ if ( isset( $_FILES[ 'arquivo' ][ 'name' ] ) && $_FILES[ 'arquivo' ][ 'error' ] 
 				//echo '<img width="50" src="../img/agenda/'. utf8_encode($img) .'"><br />';
 				$files_array[] = utf8_encode($img);
 			}
-			echo json_encode($files_array);
-			
+			echo json_encode($files_array);			
         }
         else
             echo '{"error":"no_permission"}';
