@@ -377,6 +377,11 @@ $('#btUpload').click(function() {
         $('#upIMage').ajaxForm({                 
 			complete: function(xhr) {
 				window.alert(xhr.responseText);
+			},
+			
+			error: function(){
+				window.alert('Oops, ocorreu um errro.');
+				xhr.abort();
 			}
         }); 
     });
