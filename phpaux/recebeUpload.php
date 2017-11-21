@@ -36,7 +36,7 @@ if ( isset( $_FILES[ 'arquivo' ][ 'name' ] ) && $_FILES[ 'arquivo' ][ 'error' ] 
 		$img_height = getimagesize($arquivo_tmp)[1];
 		//echo "Tamanho: ", $img_width, "X", $img_height;
 		//echo json_encode(array('error'=>'already_exists'));
-		echo '{"error":"already_exists"}';
+		echo '{"error":"Este nome já existe! Escolha outro."}';
 		return;
 		
 	}
@@ -70,10 +70,10 @@ if ( isset( $_FILES[ 'arquivo' ][ 'name' ] ) && $_FILES[ 'arquivo' ][ 'error' ] 
 			echo json_encode($files_array);			
         }
         else
-            echo '{"error":"no_permission"}';
+            echo '{"error":"Sem permissão!"}';
     }
     else
-        echo '{"error":"invalid_file_type"}';
+        echo '{"error":"Tipo de arquivo inválido!"}';
 }
 else
-    echo '{"error":"no_file"}';
+    echo '{"error":"Nenhum arquivo selecionado!"}';

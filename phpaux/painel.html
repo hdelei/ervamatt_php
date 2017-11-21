@@ -16,32 +16,29 @@
         margin: 5px;        
         overflow: auto;
 		padding: 5px;
-    }
-    
+    }    
     #pic_slide > div {
-        display: inline-block;    
-        }
-    #pic_name {
-        width: auto;
-        height: 30px;
-        background-color: whitesmoke;        
-    }
+        display: inline-block; 		
+        }    
     .sl_thumb{
         width: 60px; 
         height: 60px;
-		margin-bottom:5px;
+		/*margin-bottom:5px;*/
     }
 	.thumb_a {
         max-width: 100%;
         max-height: 100%;    
-		opacity: 0.8;	
-		
+		opacity: 0.8;		
     }
     .thumb_a:hover {
      opacity:1;	 
      transition:1s;
-    }
-    
+    }	
+	#pic_name {
+        width: auto;
+        height: 30px;
+        background-color: whitesmoke;        
+    }    
     #form_agenda, #preview_agenda {
         display:inline-block;
         padding:5px;                
@@ -215,29 +212,8 @@
 	<a class="w3-button w3-theme-red w3-hover-white" onclick="deleteShow()">Deletar</a>
     <a class="w3-button w3-theme-d1 w3-hover-white" href="javascript:void(0)" onclick="w3_open();openNav('nav02')">Foto</a>
     
-  </div>
+  </div>   
     
-    <!--<div id="pic_slide">
-        <div class="sl_thumb"><img class="thumb_a" src="/img/agenda/1.jpg"></div>
-        <div class="sl_thumb"><img class="thumb_a" src="/img/agenda/2.jpg"></div>
-        <div class="sl_thumb"><img class="thumb_a" src="/img/agenda/3.jpg"></div>
-        <div class="sl_thumb"><img class="thumb_a" src="/img/agenda/1.jpg"></div>
-        <div class="sl_thumb"><img class="thumb_a" src="/img/agenda/2.jpg"></div>
-        <div class="sl_thumb"><img class="thumb_a" src="/img/agenda/3.jpg"></div>
-        <div class="sl_thumb"><img class="thumb_a" src="/img/agenda/1.jpg"></div>
-        <div class="sl_thumb"><img class="thumb_a" src="/img/agenda/2.jpg"></div>
-        <div class="sl_thumb"><img class="thumb_a" src="/img/agenda/3.jpg"></div>
-        <div class="sl_thumb"><img class="thumb_a" src="/img/agenda/1.jpg"></div>
-        <div class="sl_thumb"><img class="thumb_a" src="/img/agenda/2.jpg"></div>
-        <div class="sl_thumb"><img class="thumb_a" src="/img/agenda/3.jpg"></div>
-        <div class="sl_thumb"><img class="thumb_a" src="/img/agenda/1.jpg"></div>
-        <div class="sl_thumb"><img class="thumb_a" src="/img/agenda/2.jpg"></div>
-        <div class="sl_thumb"><img class="thumb_a" src="/img/agenda/3.jpg"></div>
-        <div class="sl_thumb"><img class="thumb_a" src="/img/agenda/1.jpg"></div>
-        <div class="sl_thumb"><img class="thumb_a" src="/img/agenda/2.jpg"></div>
-        <div class="sl_thumb"><img class="thumb_a" src="/img/agenda/3.jpg"></div>
-    </div>-->
-  <!--<a class="w3-button w3-theme w3-hover-white" onclick="clearPicName()">sem imagem</a>-->
 </div>
 
 <div id="historia" class="w3-container w3-padding-large w3-section w3-light-grey">
@@ -313,27 +289,35 @@ w3CodeColor();
 <script>
 //Change image on click perform
 var def = $('#img_large').attr('src');
-$('.thumb_a').click(function(){
-    var imgName = $(this).attr('src');
-    def = imgName;
-    $('#img_large').attr('src', imgName);
-    imgName = imgName.split('\/');    
-    $('#pic_text').val(imgName[imgName.length-1]);
-	//blink color of background
-	setTimeout(function(){
-		$('#pic_text').css('background-color', 'white');;
-	}, 1200);
-	$('#pic_text').css('background-color', '#4dff4d');
-});
+
+function thumbClickable(){
+	$('.thumb_a').click(function(){
+		var imgName = $(this).attr('src');
+		def = imgName;
+		$('#img_large').attr('src', imgName);
+		imgName = imgName.split('\/');    
+		$('#pic_text').val(imgName[imgName.length-1]);
+		//blink color of background
+		setTimeout(function(){
+			$('#pic_text').css('background-color', 'white');;
+		}, 1200);
+		$('#pic_text').css('background-color', '#4dff4d');
+	});	
+}
+
+function thumbHoverable(){
+	//Change image hover effect
+	$('.thumb_a').hover(function(){    
+		var img1 = $(this).attr('src');
+		$('#img_large').attr('src', img1);
+		}, function(){    
+		$('#img_large').attr('src', def);
+	});
+}
+
+thumbClickable();
+thumbHoverable();
     
-//Change image hover effect
-$('.thumb_a').hover(function(){    
-    var img1 = $(this).attr('src');
-    $('#img_large').attr('src', img1);
-    }, function(){    
-    $('#img_large').attr('src', def);
-	
-});
 
 function addShow(){
     window.alert("Show adicionado");
@@ -368,23 +352,38 @@ $('#btUpload').click(function() {
 </script>
 <script src="http://malsup.github.com/jquery.form.js"></script> 
 <script> 
-	//ENVIAR IMAGEM DE MODO ASSINCRONO COM PLUGIN
-	//FALTA TRATAR O RESPONSE TEXT
-
     // wait for the DOM to be loaded 
     $(document).ready(function() { 
         // bind 'myForm' and provide a simple callback function 
         $('#upIMage').ajaxForm({                 
-			complete: function(xhr) {
-				window.alert(xhr.responseText);
-			},
-			
-			error: function(){
-				window.alert('Oops, ocorreu um errro.');
-				xhr.abort();
+			complete: function(xhr) {				
+				manageResponse(xhr.responseText);				
+			},			
+			error: function(xhr){				
+				xhr.responseText = '{"error":"Erro desconhecido! Se o problema persistir, contate o administrador."}';
 			}
         }); 
     });
+	
+	function manageResponse(response){
+		var resp = JSON.parse(response);	
+		
+		if(!("error" in resp)){
+			var htmlStr = "";
+			for (i in resp){
+				//console.log(resp[i]);
+				htmlStr += '<div class="sl_thumb"><img class="thumb_a" src="/img/agenda/' + resp[i] + '"></div>';				
+			}			
+			$('#pic_slide').html(htmlStr);
+			thumbClickable();
+			thumbHoverable();
+			//TODO: corrigir a margem após o upload
+			//TODO: seleciona a imagem no preview		
+		}
+		else{
+			window.alert(resp.error);
+		}
+	}
 </script> 
 
 </body>
