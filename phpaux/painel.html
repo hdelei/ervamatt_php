@@ -295,6 +295,7 @@ function thumbClickable(){
 		var imgName = $(this).attr('src');
 		def = imgName;
 		$('#img_large').attr('src', imgName);
+		//console.log(imgName);
 		imgName = imgName.split('\/');    
 		$('#pic_text').val(imgName[imgName.length-1]);
 		//blink color of background
@@ -377,8 +378,12 @@ $('#btUpload').click(function() {
 			$('#pic_slide').html(htmlStr);
 			thumbClickable();
 			thumbHoverable();
-			//TODO: corrigir a margem após o upload
-			//TODO: seleciona a imagem no preview		
+			
+			//set uploaded image in preview
+			uploadedImage = $('#btChoose').text();
+			$('#img_large').attr('src', '/img/agenda/' + uploadedImage);
+			$('#pic_text').val(uploadedImage);
+			//TODO: corrigir a margem após o upload				
 		}
 		else{
 			window.alert(resp.error);
