@@ -109,7 +109,8 @@
   <a class="w3-bar-item w3-button" target="_blank" href="tryw3css_examples_blog.htm"><img src="img_demo_blog.jpg" style="width:100%;"></a>-->
   
   <div id="pic_slide">
-        <div class="sl_thumb"><img class="thumb_a" src="/img/agenda/1.jpg"></div>
+	<?php include 'adm_galeria.php' ?>
+       <!-- <div class="sl_thumb"><img class="thumb_a" src="/img/agenda/1.jpg"></div>
         <div class="sl_thumb"><img class="thumb_a" src="/img/agenda/2.jpg"></div>
         <div class="sl_thumb"><img class="thumb_a" src="/img/agenda/3.jpg"></div>
         <div class="sl_thumb"><img class="thumb_a" src="/img/agenda/1.jpg"></div>
@@ -126,7 +127,7 @@
         <div class="sl_thumb"><img class="thumb_a" src="/img/agenda/3.jpg"></div>
         <div class="sl_thumb"><img class="thumb_a" src="/img/agenda/1.jpg"></div>
         <div class="sl_thumb"><img class="thumb_a" src="/img/agenda/2.jpg"></div>
-        <div class="sl_thumb"><img class="thumb_a" src="/img/agenda/3.jpg"></div>
+        <div class="sl_thumb"><img class="thumb_a" src="/img/agenda/3.jpg"></div>-->
     </div>
 	
 	<div style="padding:5px">
