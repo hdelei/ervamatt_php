@@ -6,16 +6,21 @@
  
 // verifica se foi enviado um arquivo
 if ( isset( $_FILES[ 'arquivo' ][ 'name' ] ) && $_FILES[ 'arquivo' ][ 'error' ] == 0 ) {
-    //echo 'Você enviou o arquivo: <strong>' . $_FILES[ 'arquivo' ][ 'name' ] . '</strong><br />';
-    //echo 'Este arquivo é do tipo: <strong > ' . $_FILES[ 'arquivo' ][ 'type' ] . ' </strong ><br />';
-    //echo 'Tempororiamente foi salvo em: <strong>' . $_FILES[ 'arquivo' ][ 'tmp_name' ] . '</strong><br />';
-    //echo 'Seu tamanho é: <strong>' . $_FILES[ 'arquivo' ][ 'size' ] . '</strong> Bytes<br /><br />';
- 
+    
     //cria um arquivo temporário
 	$arquivo_tmp = $_FILES[ 'arquivo' ][ 'tmp_name' ];	
 	
+	//obtém as dimensões da imagem
+	$img_width = getimagesize($arquivo_tmp)[0];
+	$img_height = getimagesize($arquivo_tmp)[1];
+	
+	sizeTolerance($img_width, $img_height);
+	
 	//salva o nome real do arquivo e decodifica se necessário
     $nome = utf8_decode($_FILES[ 'arquivo' ][ 'name' ]);
+	
+	//converte em minúsculo
+	$nome = strtolower($nome);
 	
 	//diretório de upload
 	$directory = '../img/agenda/';
@@ -26,19 +31,13 @@ if ( isset( $_FILES[ 'arquivo' ][ 'name' ] ) && $_FILES[ 'arquivo' ][ 'error' ] 
 		$utf8_files[] = utf8_encode($i);
 	}	
 	
-	$js = json_encode($utf8_files);
-	//echo json_decode($js)[8];//json_decode(utf8_decode($js[7]));
+	//Jsoniza os arquivos existentes
+	$js = json_encode($utf8_files);	
 	
 	//se o nome já existe, retorna resposta
 	if(in_array($nome, $files)){
-		//echo "O nome ja existe!";
-		$img_width = getimagesize($arquivo_tmp)[0];
-		$img_height = getimagesize($arquivo_tmp)[1];
-		//echo "Tamanho: ", $img_width, "X", $img_height;
-		//echo json_encode(array('error'=>'already_exists'));
 		echo '{"error":"Este nome já existe! Escolha outro."}';
-		return;
-		
+		return;		
 	}
 	
     // Pega a extensão
@@ -53,18 +52,16 @@ if ( isset( $_FILES[ 'arquivo' ][ 'name' ] ) && $_FILES[ 'arquivo' ][ 'error' ] 
     if (strstr('.jpg;.jpeg;.gif;.png', $extensao)){
         
 		// Concatena a pasta com o nome
-        $destino = '../img/agenda/' . $nome;
+        $destino = '../img/agenda/' . strtolower($nome);
  
         // tenta mover o arquivo para o destino
         if ( @move_uploaded_file ( $arquivo_tmp, $destino ) ) {
 			
-			//$destino = utf8_encode($destino);
-            //echo 'Arquivo salvo com sucesso em : <strong>' . $destino . '</strong><br />';
-            //echo ' <img src="'. $destino .'"/>';
 			$files = array_values(array_diff(scandir($directory), array('..', '.')));
 			$json_files = [];
-			foreach($files as $img){
-				//echo '<img width="50" src="../img/agenda/'. utf8_encode($img) .'"><br />';
+			
+			//gera um array de nomes atualizados para devolver
+			foreach($files as $img){				
 				$files_array[] = utf8_encode($img);
 			}
 			echo json_encode($files_array);			
@@ -77,3 +74,24 @@ if ( isset( $_FILES[ 'arquivo' ][ 'name' ] ) && $_FILES[ 'arquivo' ][ 'error' ] 
 }
 else
     echo '{"error":"Nenhum arquivo selecionado!"}';
+
+//Evitar imagens distorcidas
+function sizeTolerance($width, $height) {	
+	$bigger = max($width, $height);
+	
+	if($bigger > 320){
+		echo '{"error":"Tamanho máximo permitido 320x320 pixels!"}';
+		exit;
+	}
+	$smaller = min($width, $height);
+	$remainder = $bigger - $smaller;
+	$hundred_perct = $bigger / 100;
+		
+	$diff_perct = $remainder / $hundred_perct;
+		
+	if($diff_perct > 21){
+		echo '{"error":"O lado maior da imagem está fora do valor máximo tolerado! O ideal é 300x300 pixels."}';
+		exit;
+	}	
+}
+

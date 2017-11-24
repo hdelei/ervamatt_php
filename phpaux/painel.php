@@ -381,7 +381,7 @@ $('#btUpload').click(function() {
 			thumbHoverable();
 			
 			//set uploaded image in preview
-			uploadedImage = $('#btChoose').text();
+			uploadedImage = $('#btChoose').text().toLowerCase();
 			$('#img_large').attr('src', '/img/agenda/' + uploadedImage);
 			$('#pic_text').val(uploadedImage);
 			//TODO: corrigir a margem após o upload				
