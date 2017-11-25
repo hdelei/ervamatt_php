@@ -84,11 +84,14 @@
 <div class="w3-sidebar w3-collapse w3-white w3-animate-left w3-large" style="z-index:3;width:300px;" id="mySidebar">
 
 <div class="w3-bar w3-black w3-center">
-  <a class="w3-bar-item w3-button" style="width:33.33%" href="javascript:void(0)" onclick="openNav('nav01')">
+  <a class="w3-bar-item w3-button" style="width:33.33%" href="javascript:void(0)" 
+	onclick="openNav('nav01')" title="Menu principal">
   <i class="fa fa-bars w3-xlarge"></i></a>  
-  <a class="w3-bar-item w3-button" style="width:33.33%" href="javascript:void(0)" onclick="openNav('nav02')">
+  <a class="w3-bar-item w3-button" style="width:33.33%" href="javascript:void(0)" 
+	onclick="openNav('nav02')" title="Upload de imagens">
   <i class="fa fa-upload w3-xlarge"></i></a>
-  <a class="w3-bar-item w3-button" style="width:33.33%" href="javascript:void(0)" onclick="openNav('nav03')">
+  <a class="w3-bar-item w3-button" style="width:33.33%" href="javascript:void(0)" 
+	onclick="openNav('nav03')" title="Log">
   <i class="fa fa-file w3-xlarge"></i></a>
 </div>
 
@@ -145,16 +148,10 @@
 
 <div id="nav03">
   <div class="w3-container w3-border-bottom">
-    <h1 class="w3-text-theme">W3.CSS</h1>
+    <h1 class="w3-text-theme">LOG</h1>	
   </div>
-  <ul class="w3-ul w3-large">  
-   <li class="w3-padding-16">Smaller and faster</li>
-   <li class="w3-padding-16">Easier to use</li>
-   <li class="w3-padding-16">Easier to learn</li>
-   <li class="w3-padding-16">CSS only</li>
-   <li class="w3-padding-16">Speeds up apps</li>
-   <li class="w3-padding-16">CSS equality for all</li>
-   <li class="w3-padding-16">PC Laptop Tablet Mobile</li>
+  <ul id="log-ul" class="w3-ul w3-small">  
+   <li class="w3-padding-small"><h3 class="w3-text-theme">registro de ações:</h1></li>
   </ul>
 </div>
 </div>
@@ -394,9 +391,13 @@ $('#btUpload').click(function() {
 			$('#pic_text').val(uploadedImage);
 			
 			//corrige a margem após o upload
-			$('.sl_thumb').css('margin-right','5px');			
+			$('.sl_thumb').css('margin-right','5px');
+			
+			//Loga 
+			$('#log-ul').append('<li class="w3-padding-small">Imagem \"' + uploadedImage + '"\ enviada com sucesso.</li>');
 		}
 		else{
+			$('#log-ul').append('<li class="w3-padding-small">Erro: ' + resp.error + '</li>');   
 			window.alert(resp.error);
 		}
 	}
