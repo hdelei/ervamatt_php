@@ -14,20 +14,26 @@ if ( isset( $_FILES[ 'arquivo' ][ 'name' ] ) && $_FILES[ 'arquivo' ][ 'error' ] 
 	$img_width = getimagesize($arquivo_tmp)[0];
 	$img_height = getimagesize($arquivo_tmp)[1];
 	
-	//Tolerância na dimensão
 	sizeTolerance($img_width, $img_height);
 	
-	//salva o nome real do arquivo e decodifica se necessário    
-	$nome = standardizeFileName(utf8_decode($_FILES['arquivo']['name']));		
+	//salva o nome real do arquivo e decodifica se necessário
+    //$nome = utf8_decode($_FILES[ 'arquivo' ][ 'name' ]);
+	$nome = standardizeFileName(utf8_decode($_FILES['arquivo']['name']));	
+	
+	//converte em minúsculo
+	//$nome = strtolower($nome);
 	
 	//diretório de upload
 	$directory = '../img/agenda/';
 	
 	//lista os arquivos existentes
-	$files = array_values(array_diff(scandir($directory), array('..', '.')));	
+	$files = array_values(array_diff(scandir($directory), array('..', '.')));
+	foreach($files as $i){
+		$utf8_files[] = utf8_encode($i);
+	}	
 	
 	//Jsoniza os arquivos existentes
-	$js = json_encode($files);	
+	$js = json_encode($utf8_files);	
 	
 	//se o nome já existe, retorna resposta
 	if(in_array($nome, $files)){
@@ -37,19 +43,29 @@ if ( isset( $_FILES[ 'arquivo' ][ 'name' ] ) && $_FILES[ 'arquivo' ][ 'error' ] 
 	
     // Pega a extensão
     $extensao = pathinfo($nome, PATHINFO_EXTENSION);
-	
+ 
+    // Converte a extensão para minúsculo
+    //$extensao = strtolower($extensao);
+ 
     // Somente imagens, .jpg;.jpeg;.gif;.png
     // Aqui eu enfileiro as extensões permitidas e separo por ';'
     // Isso serve apenas para eu poder pesquisar dentro desta String
     if (strstr('.jpg;.jpeg;.gif;.png', $extensao)){
         
 		// Concatena a pasta com o nome
-        $destino = '../img/agenda/' . $nome;
+        $destino = '../img/agenda/' . strtolower($nome);
  
         // tenta mover o arquivo para o destino
-        if ( @move_uploaded_file($arquivo_tmp, $destino)){
+        if ( @move_uploaded_file ( $arquivo_tmp, $destino ) ) {
 			
-			echo json_encode(array("img"  => $nome));			
+			$files = array_values(array_diff(scandir($directory), array('..', '.')));
+			$json_files = [];
+			
+			//gera um array de nomes atualizados para devolver
+			foreach($files as $img){				
+				$files_array[] = utf8_encode($img);
+			}
+			echo json_encode($files_array);			
         }
         else
             echo '{"error":"Sem permissão!"}';

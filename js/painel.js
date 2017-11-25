@@ -34,7 +34,7 @@ function thumbHoverable(){
 thumbClickable();
 thumbHoverable();    
 
-//Ainda n„o implementado
+//Ainda n√£o implementado
 function addShow(){
     window.alert("Show adicionado");
 }
@@ -73,7 +73,8 @@ $('#btUpload').click(function() {
 $(document).ready(function() {     
     $('#upIMage').ajaxForm({                 
 		complete: function(xhr) {				
-			manageResponse(xhr.responseText);				
+			manageResponse(xhr.responseText);	
+			console.log(xhr.responseText)
 		},			
 		error: function(xhr){				
 			xhr.responseText = '{"error":"Erro desconhecido! Se o problema persistir, contate o administrador."}';
@@ -81,8 +82,8 @@ $(document).ready(function() {
     }); 
 });
 	
-//Gerencia a resposta da requisiÁ„o de upload de imagem
-function manageResponse(response){
+//Gerencia a resposta da requisi√ß√£o de upload de imagem
+function manageResponseOld(response){
 	var resp = JSON.parse(response);	
 		
 	if(!("error" in resp)){
@@ -99,7 +100,38 @@ function manageResponse(response){
 		$('#img_large').attr('src', '/img/agenda/' + uploadedImage);
 		$('#pic_text').val(uploadedImage);
 	
-		//corrige a margem apÛs o upload
+		//corrige a margem ap√≥s o upload
+		$('.sl_thumb').css('margin-right','5px');
+			
+		//Loga 
+		$('#log-ul').append('<li class="w3-padding-small">Imagem \"' + uploadedImage + '"\ enviada com sucesso.</li>');
+	}
+	else{
+		//Loga
+		$('#log-ul').append('<li class="w3-padding-small">Erro: ' + resp.error + '</li>');   
+		window.alert(resp.error);
+	}
+}
+
+function manageResponse(response){
+	var resp = JSON.parse(response);	
+		
+	if(!("error" in resp)){
+		var htmlStr = '<div class="sl_thumb"><img class="thumb_a" src="/img/agenda/' 
+						+ resp.img 
+						+ '"></div>';
+		console.log(htmlStr);
+		
+		$('#pic_slide').append(htmlStr);
+		thumbClickable();
+		thumbHoverable();
+			
+		//set uploaded image in preview
+		uploadedImage = resp.img;
+		$('#img_large').attr('src', '/img/agenda/' + uploadedImage);
+		$('#pic_text').val(uploadedImage);
+	
+		//corrige a margem ap√≥s o upload
 		$('.sl_thumb').css('margin-right','5px');
 			
 		//Loga 
