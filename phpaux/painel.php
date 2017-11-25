@@ -12,18 +12,19 @@
     #pic_slide {        
         max-height: 260px;
 		max-width:96%;
-        background-color: gainsboro;
-        margin: 5px;        
+        background-color: gainsboro;        
         overflow: auto;
+		margin: 5px;
 		padding: 5px;
     }    
     #pic_slide > div {
-        display: inline-block; 		
+        display: inline-block;		
         }    
     .sl_thumb{
         width: 60px; 
         height: 60px;
-		/*margin-bottom:5px;*/
+		margin-right:0;
+		margin-top:2px;
     }
 	.thumb_a {
         max-width: 100%;
@@ -32,7 +33,7 @@
     }
     .thumb_a:hover {
      opacity:1;	 
-     transition:1s;
+     transition:500ms;
     }	
 	#pic_name {
         width: auto;
@@ -340,9 +341,13 @@ $('#datePicker').val(today);
 
 //Upload de imagens
 $('input[name=arquivo]').change(function() {
-   simple_name = $(this).val().split('\\').pop(); 
-   $('#btChoose').text(simple_name);
+	simple_name = $(this).val().split('\\').pop(); 
+	if(simple_name == "")
+		$('#btChoose').text("Selecionar");   
+	else
+		$('#btChoose').text(simple_name);   
 });
+
 $('#btChoose').click(function() {
     $('input[name=arquivo]').click();
 });
@@ -352,7 +357,10 @@ $('#btUpload').click(function() {
 });
     
 </script>
-<script src="http://malsup.github.com/jquery.form.js"></script> 
+
+<!--<script src="http://malsup.github.com/jquery.form.js"></script> -->
+<script src="/js/jquery.form.js"></script>
+
 <script> 
     // wait for the DOM to be loaded 
     $(document).ready(function() { 
@@ -384,13 +392,19 @@ $('#btUpload').click(function() {
 			uploadedImage = $('#btChoose').text().toLowerCase();
 			$('#img_large').attr('src', '/img/agenda/' + uploadedImage);
 			$('#pic_text').val(uploadedImage);
-			//TODO: corrigir a margem após o upload				
+			
+			//corrige a margem após o upload
+			$('.sl_thumb').css('margin-right','5px');			
 		}
 		else{
 			window.alert(resp.error);
 		}
 	}
 </script> 
+
+<script>
+	
+</script>
 
 </body>
 </html> 
