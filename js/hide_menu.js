@@ -5,10 +5,9 @@
 
 document.getElementsByTagName("BODY")[0].onclick = function(e){		
 		
-		if(e.target != $JQuery('#MyNavTop')) {						
-			
-			if($JQuery('#myToggle').is( ':visible' )){
-				$JQuery("#myToggle").collapse('hide');				
-			}
-		}	
-	}
+	if(e.target != $JQuery('#MyNavTop')) {									
+		if($JQuery('#myToggle').is( ':visible' )){
+			$JQuery("#myToggle").collapse('hide');				
+		}
+	}	
+}

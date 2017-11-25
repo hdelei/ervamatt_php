@@ -6,7 +6,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="/css/adm.css">
 <link rel="stylesheet" href="/css/adm-theme-teal.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">   
+<!--<link rel="stylesheet" href="/css/font-awesome.min.css">-->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     
 <style>
     #pic_slide {        
@@ -204,14 +205,14 @@
         </ul>
         <br>                
     </div>
-	
-	<p>
+  </div>  
+  
+  <div>
 	<a class="w3-button w3-theme w3-hover-white" onclick="addShow()">Incluir</a>
 	<a class="w3-button w3-theme-d4 w3-hover-white" onclick="updateShow()">Atualizar</a>
 	<a class="w3-button w3-theme-red w3-hover-white" onclick="deleteShow()">Deletar</a>
     <a class="w3-button w3-theme-d1 w3-hover-white" href="javascript:void(0)" onclick="w3_open();openNav('nav02')">Foto</a>
-    
-  </div>   
+  </div>
     
 </div>
 
@@ -250,8 +251,8 @@
 
 <footer class="w3-container w3-padding-large w3-light-grey w3-justify w3-opacity">
   <p><nav>
-  <a href="/forum/default.asp" target="_blank">FORUM</a> |
-  <a href="/about/default.asp" target="_top">ABOUT</a>
+  <a href="#" target="_blank">FORUM</a> |
+  <a href="#" target="_top">ABOUT</a>
   </nav></p>
 </footer>
 
@@ -274,18 +275,22 @@ function openNav(id) {
     document.getElementById(id).style.display = "block";
 }
 </script>
-<script src="https://www.w3schools.com/lib/w3codecolor.js"></script>
-<script>
-w3CodeColor();
-</script>
     
+<!--  Load jquery from cdn -->
 <script
   src="https://code.jquery.com/jquery-3.2.1.min.js"
   integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
   crossorigin="anonymous">
 </script>
+
+<!--  Load jquery form plugin -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
+<!--<script src="/js/jquery.form.js"></script>-->
+
+<!--  Load main javascript -->
+<script src="/js/painel.js"></script>
     
-<script>
+<!--<script>
 //Change image on click perform
 var def = $('#img_large').attr('src');
 
@@ -355,7 +360,7 @@ $('#btUpload').click(function() {
     
 </script>
 
-<!--<script src="http://malsup.github.com/jquery.form.js"></script> -->
+
 <script src="/js/jquery.form.js"></script>
 
 <script> 
@@ -401,11 +406,8 @@ $('#btUpload').click(function() {
 			window.alert(resp.error);
 		}
 	}
-</script> 
+</script> -->
 
-<script>
-	
-</script>
 
 </body>
 </html> 
