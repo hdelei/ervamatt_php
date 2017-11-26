@@ -139,7 +139,7 @@
 	Ou envie uma imagem nova: <p>
 	<form id="upIMage" method="post" enctype="multipart/form-data" action="recebeUpload.php">		
 		<a id="btChoose" class="w3-button w3-theme-d5 w3-hover-green" name="arquivo" type="file">Selecionar</a>
-		<input name="arquivo" type="file" style="display:none;"/><p>		
+		<input id="file_input" name="arquivo" type="file" style="display:none;"/><p>		
 		<input type="submit" value="Upload" style="display:none;" />
 		<a id="btUpload" class="w3-button w3-theme-d5 w3-hover-green" type="submit">Upload</a>
 	</form>

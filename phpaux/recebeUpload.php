@@ -4,13 +4,21 @@
  * Upload de imagens
  ******/
  
+//error_reporting(0);
 // verifica se foi enviado um arquivo
-if ( isset( $_FILES[ 'arquivo' ][ 'name' ] ) && $_FILES[ 'arquivo' ][ 'error' ] == 0 ) {
-    
+if (isset($_FILES['arquivo']['name']) && $_FILES['arquivo']['error'] == 0){
+    //echo $_SERVER['CONTENT_LENGTH'] . '</br>';
+	
+	
     //cria um arquivo temporário
 	$arquivo_tmp = $_FILES[ 'arquivo' ][ 'tmp_name' ];	
 	
-	//obtém as dimensões da imagem
+	//obtém as dimensões da imagem	
+	if(!getimagesize($arquivo_tmp)){
+		echo '{"error":"Não é um arquivo de imagem válido!"}';
+		exit;
+	}
+	
 	$img_width = getimagesize($arquivo_tmp)[0];
 	$img_height = getimagesize($arquivo_tmp)[1];
 	
@@ -54,11 +62,13 @@ if ( isset( $_FILES[ 'arquivo' ][ 'name' ] ) && $_FILES[ 'arquivo' ][ 'error' ] 
         else
             echo '{"error":"Sem permissão!"}';
     }
-    else
+    else		
         echo '{"error":"Tipo de arquivo inválido!"}';
 }
-else
-    echo '{"error":"Nenhum arquivo selecionado!"}';
+else{	
+	echo '{"error":"Nenhum arquivo selecionado!"}';		
+}
+    
 
 //Evitar imagens distorcidas
 function sizeTolerance($width, $height) {	
@@ -69,10 +79,9 @@ function sizeTolerance($width, $height) {
 		exit;
 	}
 	$smaller = min($width, $height);
-	$remainder = $bigger - $smaller;
-	$hundred_perct = $bigger / 100;
-		
-	$diff_perct = $remainder / $hundred_perct;
+	$remainder = $bigger - $smaller;	
+	$hundred_perct = $bigger / 100;		
+	$diff_perct = $remainder / $hundred_perct;	
 		
 	if($diff_perct > 21){
 		echo '{"error":"O lado maior da imagem está fora do valor máximo tolerado! O ideal é 300x300 pixels."}';
