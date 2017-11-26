@@ -390,10 +390,9 @@
 	
 	<script>
 		$.extend($.lazyLoadXT, {
-		selector: 'img',
-		srcAttr: 'data-large',
-});
-	
+			selector: 'img',
+			srcAttr: 'data-large',
+		});	
 	</script>
 	
 	

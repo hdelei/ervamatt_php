@@ -408,6 +408,14 @@ $('#btUpload').click(function() {
 	}
 </script> -->
 
+<script type="text/javascript" src="/js/jquery.lazyloadxt.min.js"></script>
+	
+	<script>
+		$.extend($.lazyLoadXT, {
+			selector: 'img',
+			srcAttr: 'src',
+		});	
+	</script>
 
 </body>
 </html> 
