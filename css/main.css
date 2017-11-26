@@ -2,53 +2,89 @@
       position: relative;
 	  background-color: #000;	  
   }  
-    #section1 {
+    
+	.webp #section1{
+		background:url(/img/bg/webp/1.webp);
+	}	
+	.no-webp #section1{
+		background:url(/img/bg/1.jpg);
+	}	
+	#section1 {
     padding-top:10px;
     height:506px;
     color: #fff; 
 	background-color: #1E88E5;
-	background:url(/img/bg/1.jpg);
+	/*/background:url(/img/bg/1.jpg);*/
 	background-size:cover;  
 	background-position: center;
 	max-width: 1280px;	
 	background-repeat: no-repeat;
 	margin-top:10px;
-  }     
+  }
+  .webp #section2{
+		background:url(/img/bg/webp/2.webp);
+	}	
+	.no-webp #section2{
+		background:url(/img/bg/2.jpg);
+	}
   #section2 {
     /**padding-top:20px;**/
     height:500px;
     color: #fff; 
     background-color: #673ab7;
-    background:url(/img/bg/2.jpg);
+    /*background:url(/img/bg/2.jpg);*/
     background-position:center;
     max-width:1280px;
   }
   
+  .webp #section3{
+		background:url(/img/bg/webp/3.webp);
+	}	
+	.no-webp #section1{
+		background:url(/img/bg/3.jpg);
+	}
   #section3 {
-      /**padding-top:20px;**/
-      height:500px;color: #fff; background-color: #ff9800;
-  background:url(/img/bg/3.jpg);
+    /**padding-top:20px;**/
+    height:500px;color: #fff; background-color: #ff9800;
+  /*background:url(/img/bg/3.jpg);*/
   background-position:center;
   max-width:1280px;
   }
-  
+  .webp #section4{
+		background:url(/img/bg/webp/4.webp);
+	}	
+	.no-webp #section1{
+		background:url(/img/bg/4.jpg);
+	}
   #section4 {/**padding-top:20px;**/
       height:500px;color: #fff; background-color: #00bcd4;
-  background:url(/img/bg/4.jpg);
+  /*background:url(/img/bg/4.jpg);*/
   background-position:center;
   max-width:1280px;
   }
+  .webp #section5{
+		background:url(/img/bg/webp/5.webp);
+	}	
+	.no-webp #section5{
+		background:url(/img/bg/5.jpg);
+	}
   #section5 {/**padding-top:20px;**/
       height:500px;color: #fff; background-color: #009688;
-  background:url(/img/bg/5.jpg);
+  /*background:url(/img/bg/5.jpg);*/
   background-position:center;
   max-width:1280px;
   }
+  .webp #section6{
+		background:url(/img/bg/webp/6-b.webp);
+	}	
+	.no-webp #section6{
+		background:url(/img/bg/6-b.jpg);
+	}
   #section6 {/**padding-top:20px;**/
     height:700px;
     color: #fff; 
     background-color: #009688;
-    background:url(/img/bg/6-b.jpg);
+    /*background:url(/img/bg/6-b.jpg);*/
     background-position:center;
       
   max-width:1280px;

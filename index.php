@@ -122,7 +122,12 @@
     <div style="max-height:450px; max-width:430px;	
         position:relative; margin-top:30px; float:left;">
 
-        <img src="img/bg/logo.png" alt="Erva Matt Logotipo" style="max-width:90%; max-height:90%;">
+        <!--<img src="img/bg/webp/logo.webp" alt="Erva Matt Logotipo" style="max-width:90%; max-height:90%;">-->
+		<picture>
+			<source srcset="img/bg/webp/logo.webp" type="image/webp">
+			<source srcset="img/bg/logo.jpg" type="image/jpeg"> 
+			<img src="img/bg/logo.jpg" alt="Logotipo Erva Matt" style="max-width:90%; max-height:90%;">
+		</picture>
 
         </div>
 
@@ -250,31 +255,31 @@
 		  </div>
 		  <div class="es-carousel">
 		   <ul>
-		    <li><a href="#"><img src="dv_images/thumbs/1.jpg" data-large="dv_images/media/1.jpg" alt="image01" 
+		    <li><a href="#"><img data-src="dv_images/thumbs/1.jpg" data-large="dv_images/media/1.jpg" alt="image01" 
 				data-download_link="https://1drv.ms/i/s!AuO4GcRn-Qx_gSyzmdPYowTwmKaK" data-description="Gravação do videoclip Romeu e Julieta - 1080x810 jpg" /></a></li>
-			<li><a href="#"><img src="dv_images/thumbs/2.jpg" data-large="dv_images/media/2.jpg" alt="image02" 
+			<li><a href="#"><img data-src="dv_images/thumbs/2.jpg" data-large="dv_images/media/2.jpg" alt="image02" 
 				data-download_link="https://1drv.ms/i/s!AuO4GcRn-Qx_gS3l46Xq1lbpRbJO" data-description="Banda ERVA MATT - Fundo cinza - alta resolução png" /></a></li>
-			<li><a href="#"><img src="dv_images/thumbs/3.jpg" data-large="dv_images/media/3.jpg" alt="image03" 
+			<li><a href="#"><img data-src="dv_images/thumbs/3.jpg" data-large="dv_images/media/3.jpg" alt="image03" 
 				data-download_link="https://1drv.ms/i/s!AuO4GcRn-Qx_gS-gyT8mdxUF1CXo" data-description="Banda ERVA MATT - fundo transparente - alta resolução png" /></a></li>
-			<li><a href="#"><img src="dv_images/thumbs/4.jpg" data-large="dv_images/media/4.jpg" alt="image04" 
+			<li><a href="#"><img data-src="dv_images/thumbs/4.jpg" data-large="dv_images/media/4.jpg" alt="image04" 
 				data-download_link="https://1drv.ms/i/s!AuO4GcRn-Qx_gS7xzjr3ZA7ypl-v" data-description="Banda ERVA MATT - Fundo cinza - alta resolução jpg" /></a></li>
-			<li><a href="#"><img src="dv_images/thumbs/5.jpg" data-large="dv_images/media/5.jpg" alt="image05" 
+			<li><a href="#"><img data-src="dv_images/thumbs/5.jpg" data-large="dv_images/media/5.jpg" alt="image05" 
 				data-download_link="https://1drv.ms/i/s!AuO4GcRn-Qx_gTEgLmAQ4LUEKfjk" data-description="Banda ERVA MATT - fundo cinza - alta resolução png" /></a></li>
-			<li><a href="#"><img src="dv_images/thumbs/6.jpg" data-large="dv_images/media/6.jpg" alt="image06" 
+			<li><a href="#"><img data-src="dv_images/thumbs/6.jpg" data-large="dv_images/media/6.jpg" alt="image06" 
 				data-download_link="https://1drv.ms/i/s!AuO4GcRn-Qx_gTelmQs_HjkqNMRA" data-description="Banda ERVA MATT - fundo cinza - alta resolução png" /></a></li>
-			<li><a href="#"><img src="dv_images/thumbs/7.jpg" data-large="dv_images/media/7.jpg" alt="image07" 
+			<li><a href="#"><img data-src="dv_images/thumbs/7.jpg" data-large="dv_images/media/7.jpg" alt="image07" 
 				data-download_link="https://1drv.ms/i/s!AuO4GcRn-Qx_gTA_8hExeMFXx9Sy" data-description="Guitarra - 640x427 jpg" /></a></li>
-			<li><a href="#"><img src="dv_images/thumbs/8.jpg" data-large="dv_images/media/8.jpg" alt="image08" 
+			<li><a href="#"><img data-src="dv_images/thumbs/8.jpg" data-large="dv_images/media/8.jpg" alt="image08" 
 				data-download_link="https://1drv.ms/i/s!AuO4GcRn-Qx_gTjKo1E__0HKPDsk" data-description="Banda ERVA MATT - fundo transparente - alta resolução png" /></a></li>
-			<li><a href="#"><img src="dv_images/thumbs/9.jpg" data-large="dv_images/media/9.jpg" alt="image09" 
+			<li><a href="#"><img data-src="dv_images/thumbs/9.jpg" data-large="dv_images/media/9.jpg" alt="image09" 
 				data-download_link="https://1drv.ms/i/s!AuO4GcRn-Qx_gTLgc5_ViceL8-zP" data-description="Logomarca ERVA MATT - fundo transparente - 794x1123 png" /></a></li>
-			<li><a href="#"><img src="dv_images/thumbs/10.jpg" data-large="dv_images/media/10.jpg" alt="image10" 
+			<li><a href="#"><img data-src="dv_images/thumbs/10.jpg" data-large="dv_images/media/10.jpg" alt="image10" 
 				data-download_link="https://1drv.ms/i/s!AuO4GcRn-Qx_gTPMc7mSo_gTjfZB" data-description="Logomarca ERVA MATT - fundo transparente - 288x283 png" /></a></li>
-			<li><a href="#"><img src="dv_images/thumbs/11.jpg" data-large="dv_images/media/11.jpg" alt="image11" 
+			<li><a href="#"><img data-src="dv_images/thumbs/11.jpg" data-large="dv_images/media/11.jpg" alt="image11" 
 				data-download_link="https://1drv.ms/i/s!AuO4GcRn-Qx_gTQRB71CQhM_rsI5" data-description="Logomarca ERVA MATT - fundo preto - 742x795 jpg" /></a></li>
-			<li><a href="#"><img src="dv_images/thumbs/12.jpg" data-large="dv_images/media/12.jpg" alt="image12" 
+			<li><a href="#"><img data-src="dv_images/thumbs/12.jpg" data-large="dv_images/media/12.jpg" alt="image12" 
 				data-download_link="https://1drv.ms/i/s!AuO4GcRn-Qx_gTUkhM1nvK9Rpkcj" data-description="Logomarca ERVA MATT - fundo transparente - alta resolução png" /></a></li>
-			<li><a href="#"><img src="dv_images/thumbs/13.jpg" data-large="dv_images/media/13.jpg" alt="image13" 
+			<li><a href="#"><img data-src="dv_images/thumbs/13.jpg" data-large="dv_images/media/13.jpg" alt="image13" 
 				data-download_link="https://1drv.ms/i/s!AuO4GcRn-Qx_gTa9YE5VsVekb_SN" data-description="Well Nandes - 639x960 jpg" /></a></li>
 									
 		   </ul>
@@ -365,6 +370,8 @@
     }
     </script>
 	
+	<script type="text/javascript" src="js/modernizr-custom.js"></script>
+	
     <!-- ElastSlide javascript -->
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <!--<script type="text/javascript" src="dv_js/jquery.min.1.7.1.js"></script>-->
@@ -378,6 +385,17 @@
 	<script type="text/javascript" src="js/ajax2.js"></script>
 	<!-- Load Youtube player -->
 	<script type="text/javascript" src="js/youtube_script.js"></script>
+	
+	<script type="text/javascript" src="js/jquery.lazyloadxt.min.js"></script>
+	
+	<script>
+		$.extend($.lazyLoadXT, {
+		selector: 'img',
+		srcAttr: 'data-large',
+});
+	
+	</script>
+	
 	
 </body>
 </html>
