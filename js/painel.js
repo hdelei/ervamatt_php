@@ -129,3 +129,17 @@ function manageResponse(response){
 		window.alert(resp.error);
 	}
 }
+
+/*
+/ parameter: com - type string "next", "previous" or "initial"
+*/
+function galleryResquest(com = 'initial'){	
+	//TODO: adicionar parametros em adm_galeria.php
+	// e um switch para selecionar próxima
+	//Retornar o array com a quantidade de elementos 
+	//para adicionar a logica de 'next previous'
+	$("#pic_slide").load('adm_galeria.php', function(){
+		thumbClickable();
+		thumbHoverable();
+	});		
+}

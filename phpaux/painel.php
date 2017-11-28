@@ -115,6 +115,7 @@
   
   <div id="pic_slide">
 	<?php include 'adm_galeria.php' ?>
+	
        <!-- <div class="sl_thumb"><img class="thumb_a" src="/img/agenda/1.jpg"></div>
         <div class="sl_thumb"><img class="thumb_a" src="/img/agenda/2.jpg"></div>
         <div class="sl_thumb"><img class="thumb_a" src="/img/agenda/3.jpg"></div>
@@ -415,6 +416,13 @@ $('#btUpload').click(function() {
 			selector: 'img',
 			srcAttr: 'src',
 		});	
+	</script>
+	
+	
+	<script>
+		
+		
+	
 	</script>
 
 </body>
