@@ -114,27 +114,19 @@
   <a class="w3-bar-item w3-button" target="_blank" href="tryw3css_examples_blog.htm"><img src="img_demo_blog.jpg" style="width:100%;"></a>-->
   
   <div id="pic_slide">
-	<?php include 'adm_galeria.php' ?>
-	
+	<?php 
+	$_GET['position'] = 0;
+	include 'adm_galeria.php'
+	?>	
        <!-- <div class="sl_thumb"><img class="thumb_a" src="/img/agenda/1.jpg"></div>
-        <div class="sl_thumb"><img class="thumb_a" src="/img/agenda/2.jpg"></div>
-        <div class="sl_thumb"><img class="thumb_a" src="/img/agenda/3.jpg"></div>
-        <div class="sl_thumb"><img class="thumb_a" src="/img/agenda/1.jpg"></div>
-        <div class="sl_thumb"><img class="thumb_a" src="/img/agenda/2.jpg"></div>
-        <div class="sl_thumb"><img class="thumb_a" src="/img/agenda/3.jpg"></div>
-        <div class="sl_thumb"><img class="thumb_a" src="/img/agenda/1.jpg"></div>
-        <div class="sl_thumb"><img class="thumb_a" src="/img/agenda/2.jpg"></div>
-        <div class="sl_thumb"><img class="thumb_a" src="/img/agenda/3.jpg"></div>
-        <div class="sl_thumb"><img class="thumb_a" src="/img/agenda/1.jpg"></div>
-        <div class="sl_thumb"><img class="thumb_a" src="/img/agenda/2.jpg"></div>
-        <div class="sl_thumb"><img class="thumb_a" src="/img/agenda/3.jpg"></div>
-        <div class="sl_thumb"><img class="thumb_a" src="/img/agenda/1.jpg"></div>
-        <div class="sl_thumb"><img class="thumb_a" src="/img/agenda/2.jpg"></div>
-        <div class="sl_thumb"><img class="thumb_a" src="/img/agenda/3.jpg"></div>
-        <div class="sl_thumb"><img class="thumb_a" src="/img/agenda/1.jpg"></div>
         <div class="sl_thumb"><img class="thumb_a" src="/img/agenda/2.jpg"></div>
         <div class="sl_thumb"><img class="thumb_a" src="/img/agenda/3.jpg"></div>-->
     </div>
+	<div style="padding-left:5px;padding-right:5px;text-align:center;">
+	<div id="previous_gallery" class="w3-button w3-theme-d5 w3-hover-green" style='display:inline-block;'>Ant</div>
+	<!--<div id="count_gallery" style='display:inline-block;text-align:center;'>1-2</div>-->
+	<div id="next_gallery" class="w3-button w3-theme-d5 w3-hover-green" style='display:inline-block;'>Próx</div>
+	</div>
 	
 	<div style="padding:5px">
 	Ou envie uma imagem nova: <p>
@@ -420,8 +412,7 @@ $('#btUpload').click(function() {
 	
 	
 	<script>
-		
-		
+		galleryPosition = 0;	
 	
 	</script>
 

@@ -107,12 +107,13 @@ function manageResponse(response){
 						+ '"></div>';
 		//console.log(htmlStr);
 		
-		$('#pic_slide').prepend(htmlStr);
+		//$('#pic_slide').prepend(htmlStr);
+		$('.thumb_a').first().replaceWith(htmlStr);
 		thumbClickable();
 		thumbHoverable();
 			
 		//set uploaded image in preview
-		uploadedImage = resp.img;
+		uploadedImage = resp.img;		
 		$('#img_large').attr('src', '/img/agenda/' + uploadedImage);
 		$('#pic_text').val(uploadedImage);
 	
@@ -130,15 +131,27 @@ function manageResponse(response){
 	}
 }
 
-/*
-/ parameter: com - type string "next", "previous" or "initial"
-*/
-function galleryResquest(com = 'initial'){	
-	//TODO: adicionar parametros em adm_galeria.php
-	// e um switch para selecionar próxima
-	//Retornar o array com a quantidade de elementos 
-	//para adicionar a logica de 'next previous'
-	$("#pic_slide").load('adm_galeria.php', function(){
+
+//CHANGE IMAGE ON GALLERY
+$('#next_gallery').click(function() {	
+	galleryPosition += 12;	
+    galleryResquest(galleryPosition);	
+});
+
+$('#previous_gallery').click(function() {	
+	galleryPosition -= 12;	
+    galleryResquest(galleryPosition);	
+});
+
+//LOAD NEXT IMAGES ON GALLERY
+function galleryResquest(position){	
+	var link = 'adm_galeria.php?position=' + position;
+	$("#pic_slide").load(link, function(response, status, xhr){
+		if(response == ''){
+			galleryPosition = 0;
+			galleryResquest(galleryPosition);
+		}
+		//$('#count_gallery').html((galleryPosition+1) + "-" + (galleryPosition+12));
 		thumbClickable();
 		thumbHoverable();
 	});		
