@@ -1,10 +1,9 @@
 /*
 	Main JS for painel.php
 */
-
 var def = $('#img_large').attr('src');
 
-//Change image on click perform
+//Listen click for gallery
 function thumbClickable(){
 	$('.thumb_a').click(function(){
 		var imgName = $(this).attr('src');
@@ -21,7 +20,7 @@ function thumbClickable(){
 	});	
 }
 
-//Change image hover effect
+//Make image hover effect
 function thumbHoverable(){
 	$('.thumb_a').hover(function(){    
 		var img1 = $(this).attr('src');
@@ -54,14 +53,14 @@ $('#datePicker').val(today);
 
 //Handle the buttons behavior and filesize
 $('input[name=arquivo]').change(function() {
-	simple_name = $(this).val().split('\\').pop(); 
+	var simple_name = $(this).val().split('\\').pop(); 
 	if(simple_name == "")
 		$('#btChoose').text("Selecionar");   
 	else
 		$('#btChoose').text(simple_name);
 
 	//check file size limit
-	file_size = 0;
+	var file_size = 0;
 	try {
 		file_size = $('#file_input')[0].files[0].size;
 		if(file_size > 1000000){
@@ -89,8 +88,7 @@ $('#btUpload').click(function() {
 $(document).ready(function() {     
     $('#upIMage').ajaxForm({                 
 		complete: function(xhr) {				
-			manageResponse(xhr.responseText);	
-			//console.log(xhr.responseText)
+			manageResponse(xhr.responseText);				
 		},			
 		error: function(xhr){				
 			xhr.responseText = '{"error":"Erro desconhecido! Se o problema persistir, contate o administrador."}';
@@ -104,22 +102,16 @@ function manageResponse(response){
 	if(!("error" in resp)){
 		var htmlStr = '<div class="sl_thumb"><img class="thumb_a" src="/img/agenda/' 
 						+ resp.img 
-						+ '"></div>';
-		//console.log(htmlStr);
-		
-		//$('#pic_slide').prepend(htmlStr);
+						+ '"></div>';		
+				
 		$('.thumb_a').first().replaceWith(htmlStr);
 		thumbClickable();
 		thumbHoverable();
 			
 		//set uploaded image in preview
-		uploadedImage = resp.img;		
+		var uploadedImage = resp.img;		
 		$('#img_large').attr('src', '/img/agenda/' + uploadedImage);
-		$('#pic_text').val(uploadedImage);
-	
-		//corrige a margem após o upload
-		//$('.sl_thumb').css('margin-right','0');
-		//$('.sl_thumb').css('margin-right','0');
+		$('#pic_text').val(uploadedImage);	
 			
 		//Loga 
 		$('#log-ul').append('<li class="w3-padding-small">Imagem \"' + uploadedImage + '"\ enviada com sucesso.</li>');
@@ -146,7 +138,7 @@ $('#previous_gallery').click(function() {
 //LOAD NEXT IMAGES ON GALLERY
 function galleryResquest(position){	
 	var link = 'adm_galeria.php?position=' + position;
-	$("#pic_slide").load(link, function(response, status, xhr){
+	$("#pic_slide").load(link, function(response){
 		if(response == ''){
 			galleryPosition = 0;
 			galleryResquest(galleryPosition);

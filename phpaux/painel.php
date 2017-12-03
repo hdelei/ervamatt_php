@@ -123,9 +123,13 @@
         <div class="sl_thumb"><img class="thumb_a" src="/img/agenda/3.jpg"></div>-->
     </div>
 	<div style="padding-left:5px;padding-right:5px;text-align:center;">
-	<div id="previous_gallery" class="w3-button w3-theme-d5 w3-hover-green" style='display:inline-block;'>Ant</div>
+	<div id="previous_gallery" class="w3-button w3-theme-d5 w3-hover-blue" style='display:inline-block;'>
+		<i class="fa fa-arrow-left" aria-hidden="true"></i>	
+	</div>
 	<!--<div id="count_gallery" style='display:inline-block;text-align:center;'>1-2</div>-->
-	<div id="next_gallery" class="w3-button w3-theme-d5 w3-hover-green" style='display:inline-block;'>Próx</div>
+	<div id="next_gallery" class="w3-button w3-theme-d5 w3-hover-blue" style='display:inline-block;'>
+		<i class="fa fa-arrow-right" aria-hidden="true"></i>
+	</div>
 	</div>
 	
 	<div style="padding:5px">

@@ -44,25 +44,6 @@ for($i = 0; $i < $len; $i++){
 	$agenda_array[$i]["time"] = date('H:i', strtotime($agenda_array[$i]["time"]));	
 }
 
-//$agenda_array[0]["date"] = "10/03/1981";
-
-//echo $agenda_empty;
-
-//Transforma em Json string
-//$agenda_json = json_encode($agenda_array);
-//echo $agenda_json;
-
-//Transforma em objeto
-//$object = json_decode($agenda_json);
-
-//printa objeto pela posição e chave
-//echo $object[0]->name . "<br>";
-//echo $object[0]->address . "<br>";
-
-//printa o valor do array
-//$d = strtotime($agenda_array[0]["date"]);
-//$agenda_array[0]["date"] = date('d-m-Y', $d);
-
 $conn->close();
 
 ?>

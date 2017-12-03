@@ -8,7 +8,7 @@ $newImages = array();
 
 
 if($start > -1 && $start < count($images)){
-	$newImages = array_slice($images, $start, 12);
+	$newImages = array_slice($images, $start, 12); //max 12 imagens na galeria
 	renderHtml();
 }
 else{
