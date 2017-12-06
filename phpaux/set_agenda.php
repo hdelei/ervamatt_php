@@ -29,7 +29,7 @@ $m_query = 'SELECT * FROM agenda';
 
 $result = $db->select($m_query);
 
-print_r($result);
+//print_r($result);
 
 // if ($result){
 	// foreach($result as $r){
@@ -54,3 +54,47 @@ print_r($result);
 
 // // Insert the values into the database
 // $result = $db -> query("INSERT INTO `users` (`name`,`email`) VALUES (" . $name . "," . $email . ")");
+
+if(isset($_GET['ca'])){//CREATE AGENDA
+	print_r($_GET['ca']);	
+}
+elseif(isset($_GET['ra']) && is_numeric($_GET['ra'])){//SELECT AGENDA
+	$id = $_GET['ra'];
+	$m_query = 'SELECT * FROM `agenda` WHERE id = '.$id.';';
+	$result = $db->select($m_query);
+	echo json_encode($result);	
+}
+elseif(isset($_GET['ua']) && is_numeric($_GET['ua'][0])){//UPDATE AGENDA
+	$data = $_GET['ua'];
+	$m_query = 'UPDATE agenda SET name = '. $data[1] .',' .
+		   'address = '. $data[2] .','.
+		   'date = '. $data[3] .','.
+		   'time = '. $data[4] .','.
+		   'picture = '. $data[5] .','.
+		   'WHERE id = '. $data[0] .';';
+	
+	$result = $db->query($m_query);
+	
+	echo resultCheck($result);	
+	
+	//print_r($_GET['ua']);	
+}
+elseif(isset($_GET['da']) && is_numeric($_GET['da'])){
+	print_r($_GET['da']);	
+}
+
+function resultCheck($result){
+	if($result > 0){
+		return '{"success":"Comando executado com sucesso!"}';
+	}
+	else{
+		return '{"error":"Nenhum modificação foi feita!"}';
+	}
+	
+}
+
+
+
+
+
+
