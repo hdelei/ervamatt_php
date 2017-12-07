@@ -60,22 +60,31 @@ if(isset($_GET['ca'])){//CREATE AGENDA
 }
 elseif(isset($_GET['ra']) && is_numeric($_GET['ra'])){//SELECT AGENDA
 	$id = $_GET['ra'];
-	$m_query = 'SELECT * FROM `agenda` WHERE id = '.$id.';';
+	$m_query = 'SELECT * FROM `agenda` WHERE `id` = '.$id.';';
 	$result = $db->select($m_query);
 	echo json_encode($result);	
 }
 elseif(isset($_GET['ua']) && is_numeric($_GET['ua'][0])){//UPDATE AGENDA
 	$data = $_GET['ua'];
-	$m_query = 'UPDATE agenda SET name = '. $data[1] .',' .
-		   'address = '. $data[2] .','.
-		   'date = '. $data[3] .','.
-		   'time = '. $data[4] .','.
-		   'picture = '. $data[5] .','.
+	$m_query = 'UPDATE agenda SET name = "'. $data[1] .'",' .
+		   'address = "'. $data[2] .'",'.
+		   'date = "'. $data[3] .'",'.
+		   'time = "'. $data[4] .'",'.
+		   'picture = "'. $data[5] .'" '.
 		   'WHERE id = '. $data[0] .';';
 	
 	$result = $db->query($m_query);
 	
-	echo resultCheck($result);	
+	echo resultCheck($result);
+	
+	//exemplo de update
+	//http://localhost/phpaux/set_agenda.php
+	//?ua[]=1
+	//&ua[]=Bar%20CCU%20do%20Padre
+	//&ua[]=Rua%20dos%20L\u00edrios%20250%20-%20Ipiranga
+	//&ua[]=2017-11-28
+	//&ua[]=22:31:00
+	//&ua[]=cudopadre.jpg
 	
 	//print_r($_GET['ua']);	
 }
