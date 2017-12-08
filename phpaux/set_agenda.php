@@ -55,41 +55,41 @@ $result = $db->select($m_query);
 // // Insert the values into the database
 // $result = $db -> query("INSERT INTO `users` (`name`,`email`) VALUES (" . $name . "," . $email . ")");
 
-if(isset($_GET['ca'])){//CREATE AGENDA
-	print_r($_GET['ca']);	
+if(isset($_POST['ca'])){//CREATE AGENDA
+	print_r($_POST['ca']);	
 }
 elseif(isset($_GET['ra']) && is_numeric($_GET['ra'])){//SELECT AGENDA
 	$id = $_GET['ra'];
-	$m_query = 'SELECT * FROM `agenda` WHERE `id` = '.$id.';';
+	$m_query = "SELECT * FROM `agenda` WHERE `id`=". $db->quote($id) .";";
 	$result = $db->select($m_query);
 	echo json_encode($result);	
 }
-elseif(isset($_GET['ua']) && is_numeric($_GET['ua'][0])){//UPDATE AGENDA
-	$data = $_GET['ua'];
-	$m_query = 'UPDATE agenda SET name = "'. $data[1] .'",' .
-		   'address = "'. $data[2] .'",'.
-		   'date = "'. $data[3] .'",'.
-		   'time = "'. $data[4] .'",'.
-		   'picture = "'. $data[5] .'" '.
-		   'WHERE id = '. $data[0] .';';
-	
-	$result = $db->query($m_query);
-	
-	echo resultCheck($result);
-	
-	//exemplo de update
-	//http://localhost/phpaux/set_agenda.php
-	//?ua[]=1
-	//&ua[]=Bar%20CCU%20do%20Padre
-	//&ua[]=Rua%20dos%20L\u00edrios%20250%20-%20Ipiranga
-	//&ua[]=2017-11-28
-	//&ua[]=22:31:00
-	//&ua[]=cudopadre.jpg
-	
-	//print_r($_GET['ua']);	
+elseif(isset($_POST['ua'])){//UPDATE AGENDA
+	$data = json_decode($_POST['ua']);
+	if(is_numeric($data[0])){
+		$m_query = "UPDATE `agenda` SET `name` = " . $db->quote($data[1]) . "," .
+				   "`address` = " . $db->quote($data[2]) . ",".
+				   "`date` = ". $db->quote($data[3]) .",".
+				   "`time` = ". $db->quote($data[4]) .",".
+				   "`picture` = ". $db->quote($data[5]) ." " .
+				   "WHERE `id` = ". $db->quote($data[0]) .";";
+			
+		$result = $db->query($m_query);
+		
+		//echo $m_query;		
+		echo resultCheck($result);		
+	}
+		//exemplo de update
+		//http://localhost/phpaux/set_agenda.php
+		//?ua[]=1
+		//&ua[]=Bar%20CCU%20do%20Padre
+		//&ua[]=Rua%20dos%20L\u00edrios%20250%20-%20Ipiranga
+		//&ua[]=2017-11-28
+		//&ua[]=22:31:00
+		//&ua[]=cudopadre.jpg	
 }
-elseif(isset($_GET['da']) && is_numeric($_GET['da'])){
-	print_r($_GET['da']);	
+elseif(isset($_POST['da']) && is_numeric($_POST['da'])){
+	print_r($_POST['da']);	
 }
 
 function resultCheck($result){
@@ -97,9 +97,8 @@ function resultCheck($result){
 		return '{"success":"Comando executado com sucesso!"}';
 	}
 	else{
-		return '{"error":"Nenhum modificação foi feita!"}';
-	}
-	
+		return '{"error":"Nenhuma modificação foi feita!"}';
+	}	
 }
 
 
