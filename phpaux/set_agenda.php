@@ -4,68 +4,40 @@ include 'db_class.php';
 
 $db = new Db();
 
-//UPDATE 
-// $m_query = 'UPDATE agenda SET address = "Avenida Francisco Junqueira",' .
-		   // 'time = "00:59:00"'.
-		   // 'WHERE name= "Bar Cu do Padre";';
-// $result = $db->query($m_query);
+//CREATE AGENDA RECORD
+if(isset($_POST['ca'])){
+	$data = json_decode($_POST['ca']);	
+	$m_query = "INSERT INTO `agenda` 
+		(
+			`id`, 
+			`name`, 
+			`address`, 
+			`date`, 
+			`time`, 
+			`picture`
+		)
+		VALUES 
+		(
+			'', "
+			. $db->quote($data[1]) ."," 
+			. $db->quote($data[2]) ."," 
+			. $db->quote($data[3]) ."," 
+			. $db->quote($data[4]) .","
+			. $db->quote($data[5]) .");";
 
-
-//DELETE
-// $m_query = 'DELETE FROM agenda WHERE name = "Bar Oasis";';
-// $result = $db->query($m_query);
-
-
-//INSERT
-// $m_query = 'INSERT INTO agenda (id, name, address, date, time, picture)' .
-		   // 'VALUES ("", "Bar Oasis", "Rua 3", "2017-12-04", "15:00:00",' .
-		   // '"1.jpg");';
-
-// $result = $db->query($m_query);
-
-
-//SELECT		   
-$m_query = 'SELECT * FROM agenda';
-
-$result = $db->select($m_query);
-
-//print_r($result);
-
-// if ($result){
-	// foreach($result as $r){
-		// echo "json ". json_encode($r) ;
-		// echo '<br> array ';
-		// print_r($r);
-	// }
-	// //echo json_encode($result);
-// }
-// else{
-	// echo json_encode(array('error'=>'Nenhum resultado para exibir'));
-// }
-
-
-
-// // Our database object
-// $db = new Db();    
-
-// // Quote and escape form submitted values
-// $name = $db -> quote($_POST['username']);
-// $email = $db -> quote($_POST['email']);
-
-// // Insert the values into the database
-// $result = $db -> query("INSERT INTO `users` (`name`,`email`) VALUES (" . $name . "," . $email . ")");
-
-if(isset($_POST['ca'])){//CREATE AGENDA
-	print_r($_POST['ca']);	
+	$result = $db->query($m_query);
+	echo resultCheck($result);		
 }
-elseif(isset($_GET['ra']) && is_numeric($_GET['ra'])){//SELECT AGENDA
-	$id = $_GET['ra'];
+//SELECT AGENDA RECORD
+elseif(isset($_POST['ra']) && is_numeric($_POST['ra'])){
+	$id = $_POST['ra'];
 	$m_query = "SELECT * FROM `agenda` WHERE `id`=". $db->quote($id) .";";
 	$result = $db->select($m_query);
 	echo json_encode($result);	
 }
-elseif(isset($_POST['ua'])){//UPDATE AGENDA
-	$data = json_decode($_POST['ua']);
+//UPDATE AGENDA
+elseif(isset($_POST['ua'])){
+	$data = json_decode($_POST['ua']);	
 	if(is_numeric($data[0])){
 		$m_query = "UPDATE `agenda` SET `name` = " . $db->quote($data[1]) . "," .
 				   "`address` = " . $db->quote($data[2]) . ",".
@@ -74,9 +46,8 @@ elseif(isset($_POST['ua'])){//UPDATE AGENDA
 				   "`picture` = ". $db->quote($data[5]) ." " .
 				   "WHERE `id` = ". $db->quote($data[0]) .";";
 			
-		$result = $db->query($m_query);
+		$result = $db->query($m_query);		
 		
-		//echo $m_query;		
 		echo resultCheck($result);		
 	}
 		//exemplo de update
@@ -88,11 +59,16 @@ elseif(isset($_POST['ua'])){//UPDATE AGENDA
 		//&ua[]=22:31:00
 		//&ua[]=cudopadre.jpg	
 }
-elseif(isset($_POST['da']) && is_numeric($_POST['da'])){
-	print_r($_POST['da']);	
+//DELETE AGENDA
+elseif(isset($_POST['da']) && is_numeric($_POST['da'])){ 
+	$id = $_POST['da'];
+	$m_query = "DELETE FROM agenda WHERE `id` = ". $db->quote($id) .";";	
+	$result = $db->query($m_query);	
+	echo resultCheck($result);				
 }
 
-function resultCheck($result){
+//RETURN RESULT
+function resultCheck($result){ 
 	if($result > 0){
 		return '{"success":"Comando executado com sucesso!"}';
 	}
@@ -100,9 +76,3 @@ function resultCheck($result){
 		return '{"error":"Nenhuma modificação foi feita!"}';
 	}	
 }
-
-
-
-
-
-

@@ -7,7 +7,13 @@
 </head>
 <body>
 
-<button type="button" onclick="test();">Click Me!</button>
+<button id="bt-select" type="button">Select cliente 1</button><p>
+
+<button id="bt-update" type="button">Update cliente 1</button><p>
+
+<button id="bt-delete" type="button">Delete cliente 1</button><p>
+
+<button id="bt-insert" type="button">Insert cliente</button><p>
     
 <!--  Load jquery from cdn -->
 <script
@@ -22,22 +28,21 @@
 
 
 <script>
-function test(){
-    dataString = [
-		"1", 
-		"Local do show", 
+
+data = [
+		"10", 
+		"Novo Cliente", 
 		"Rua 1", 
 		"2017/03/01", 
 		"10:20:00", 
 		"porao.jpg"
     ];
-	
-var jsonString = JSON.stringify(dataString);
 
-   $.ajax({
+function command(dataStr){   
+    $.ajax({
         type: "POST",
         url: "set_agenda.php",
-        data: {ua : jsonString}, 
+        data: dataStr,
         cache: false,
 
         success: function(response){
@@ -45,6 +50,23 @@ var jsonString = JSON.stringify(dataString);
         }
     });
 }
+
+
+
+$('#bt-select').click(function(){	
+	command({ra:data[0]});
+});
+$('#bt-update').click(function(){
+	var jsonString = JSON.stringify(data);	
+	command({ua:jsonString});	
+});
+$('#bt-delete').click(function(){	
+	command({da:data[0]});
+});
+$('#bt-insert').click(function(){
+	var jsonString = JSON.stringify(data);	
+	command({ca:jsonString});
+});
 
 
 </script>
