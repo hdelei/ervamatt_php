@@ -14,6 +14,17 @@
 <button id="bt-delete" type="button">Delete cliente 1</button><p>
 
 <button id="bt-insert" type="button">Insert cliente</button><p>
+
+<p><div id="agenda_container">
+    <div id="form_agenda">
+        Local:<br><input id="local_text" type="text" size="26" placeholder="digite o nome"><br>
+        Data:<br><input id="date_text" type="date" value="" ><br>
+        Hora:<br><input id="time_text" type="time" value="20:00" ><br>
+        Endereço:<br><input id="adress_text" type="text" size="26" placeholder="digite o endereço"><br>
+        Imagem:<br><input id="pic_text" type="text" size="26" placeholder="selecione abaixo" readonly="true"><br>                  
+        <!--<input type="file" name="pic" accept="image/*">-->
+    </div>
+  
     
 <!--  Load jquery from cdn -->
 <script
@@ -28,9 +39,9 @@
 
 
 <script>
-
+var resp = "teste";
 data = [
-		"10", 
+		"1", 
 		"Novo Cliente", 
 		"Rua 1", 
 		"2017/03/01", 
@@ -38,7 +49,7 @@ data = [
 		"porao.jpg"
     ];
 
-function command(dataStr){   
+function command(dataStr, cbFunction){   
     $.ajax({
         type: "POST",
         url: "set_agenda.php",
@@ -46,19 +57,18 @@ function command(dataStr){
         cache: false,
 
         success: function(response){
-            alert(response);
+            cbFunction(response);
         }
     });
 }
 
-
-
 $('#bt-select').click(function(){	
-	command({ra:data[0]});
+	command({ra:data[0]}, selectShow);    
 });
 $('#bt-update').click(function(){
 	var jsonString = JSON.stringify(data);	
-	command({ua:jsonString});	
+    command({ua:jsonString});
+    //create callback function	
 });
 $('#bt-delete').click(function(){	
 	command({da:data[0]});
@@ -67,6 +77,10 @@ $('#bt-insert').click(function(){
 	var jsonString = JSON.stringify(data);	
 	command({ca:jsonString});
 });
+
+function selectShow(response){
+    alert(response);
+}
 
 
 </script>
