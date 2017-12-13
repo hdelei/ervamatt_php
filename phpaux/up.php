@@ -7,11 +7,11 @@
 </head>
 <body>
 
-<button id="bt-select" type="button">Select cliente 1</button><p>
+<button id="bt-select" type="button">Select cliente</button><p>
 
-<button id="bt-update" type="button">Update cliente 1</button><p>
+<button id="bt-update" type="button">Update cliente</button><p>
 
-<button id="bt-delete" type="button">Delete cliente 1</button><p>
+<button id="bt-delete" type="button">Delete cliente</button><p>
 
 <button id="bt-insert" type="button">Insert cliente</button><p>
 
@@ -20,10 +20,13 @@
         Local:<br><input id="local_text" type="text" size="26" placeholder="digite o nome"><br>
         Data:<br><input id="date_text" type="date" value="" ><br>
         Hora:<br><input id="time_text" type="time" value="20:00" ><br>
-        Endereço:<br><input id="adress_text" type="text" size="26" placeholder="digite o endereço"><br>
+        Endereço:<br><input id="address_text" type="text" size="26" placeholder="digite o endereço"><br>
         Imagem:<br><input id="pic_text" type="text" size="26" placeholder="selecione abaixo" readonly="true"><br>                  
         <!--<input type="file" name="pic" accept="image/*">-->
     </div>
+
+    <hr>
+    Registro:<br><input id="c_id" type="text" size="5" placeholder="0">
   
     
 <!--  Load jquery from cdn -->
@@ -37,9 +40,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
 <!--<script src="/js/jquery.form.js"></script>-->
 
-
 <script>
-var resp = "teste";
 data = [
 		"1", 
 		"Novo Cliente", 
@@ -57,30 +58,47 @@ function command(dataStr, cbFunction){
         cache: false,
 
         success: function(response){
+            console.log(response);
             cbFunction(response);
+            
         }
     });
 }
 
 $('#bt-select').click(function(){	
+    data[0] = $('#c_id').val();
 	command({ra:data[0]}, selectShow);    
 });
 $('#bt-update').click(function(){
 	var jsonString = JSON.stringify(data);	
     command({ua:jsonString});
-    //create callback function	
+    //TODO: callback function	
 });
 $('#bt-delete').click(function(){	
-	command({da:data[0]});
+    command({da:data[0]});
+    //TODO: callback function	
 });
 $('#bt-insert').click(function(){
 	var jsonString = JSON.stringify(data);	
-	command({ca:jsonString});
+    command({ca:jsonString});
+    //TODO: callback function	
 });
 
 function selectShow(response){
-    alert(response);
+    resp = JSON.parse(response);
+    data = Object.values(resp[0]);    
+    updateTextBox(data);    
 }
+
+function updateTextBox(data){
+    $('#local_text').val(data[1]);
+    $('#date_text').val(data[3]);
+    $('#time_text').val(data[4]);
+    $('#address_text').val(data[2]);
+    $('#pic_text').val(data[5]);    
+}
+
+
 
 
 </script>
