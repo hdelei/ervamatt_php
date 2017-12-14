@@ -33,7 +33,14 @@ elseif(isset($_POST['ra']) && is_numeric($_POST['ra'])){
 	$id = $_POST['ra'];
 	$m_query = "SELECT * FROM `agenda` WHERE `id`=". $db->quote($id) .";";
 	$result = $db->select($m_query);
-	echo json_encode($result);	
+
+	if($result){
+		echo json_encode($result);
+	}
+	else{
+		echo '{"error":"Nenhum cliente com este numero!"}';
+	}
+	
 }
 //UPDATE AGENDA
 elseif(isset($_POST['ua'])){
@@ -66,6 +73,9 @@ elseif(isset($_POST['da']) && is_numeric($_POST['da'])){
 	$result = $db->query($m_query);	
 	echo resultCheck($result);				
 }
+else{
+	echo '{"error":"erro de preenchimento!"}';
+}
 
 //RETURN RESULT
 function resultCheck($result){ 
@@ -73,6 +83,6 @@ function resultCheck($result){
 		return '{"success":"Comando executado com sucesso!"}';
 	}
 	else{
-		return '{"error":"Nenhuma modificação foi feita!"}';
+		return '{"error":"Nenhuma modificacao foi feita!"}';
 	}	
 }

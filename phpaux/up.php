@@ -58,7 +58,7 @@ function command(dataStr, cbFunction){
         cache: false,
 
         success: function(response){
-            console.log(response);
+            //console.log(response);
             cbFunction(response);
             
         }
@@ -67,7 +67,8 @@ function command(dataStr, cbFunction){
 
 $('#bt-select').click(function(){	
     data[0] = $('#c_id').val();
-	command({ra:data[0]}, selectShow);    
+	command({ra:data[0]}, selectShow); 
+      
 });
 $('#bt-update').click(function(){
 	var jsonString = JSON.stringify(data);	
@@ -86,11 +87,17 @@ $('#bt-insert').click(function(){
 
 function selectShow(response){
     resp = JSON.parse(response);
-    data = Object.values(resp[0]);    
-    updateTextBox(data);    
+    if('error' in resp){
+        console.log(resp);
+    }
+    else{
+        data = Object.values(resp[0]);    
+        updateTextBox(data);
+    }
+        
 }
 
-function updateTextBox(data){
+function updateTextBox(data){    
     $('#local_text').val(data[1]);
     $('#date_text').val(data[3]);
     $('#time_text').val(data[4]);
