@@ -17,7 +17,7 @@
 
 <p><div id="agenda_container">
     <div id="form_agenda">
-        Local:<br><input id="local_text" type="text" size="26" placeholder="digite o nome"><br>
+        Local:<br><input id="local_text" type="text" size="26" placeholder="digite o nome" required><br>
         Data:<br><input id="date_text" type="date" value="" ><br>
         Hora:<br><input id="time_text" type="time" value="20:00" ><br>
         Endereço:<br><input id="address_text" type="text" size="26" placeholder="digite o endereço"><br>
@@ -59,8 +59,7 @@ function command(dataStr, cbFunction){
 
         success: function(response){
             //console.log(response);
-            cbFunction(response);
-            
+            cbFunction(response);            
         }
     });
 }
@@ -79,12 +78,17 @@ $('#bt-delete').click(function(){
     command({da:data[0]});
     //TODO: callback function	
 });
-$('#bt-insert').click(function(){
-	var jsonString = JSON.stringify(data);	
-    command({ca:jsonString});
-    //TODO: callback function	
+$('#bt-insert').click(function(){		
+    data[1] = $('#local_text').val();
+    data[3] = $('#date_text').val();
+    data[4] = $('#time_text').val();
+    data[2] = $('#address_text').val();
+    data[5] = $('#pic_text').val();
+    var jsonString = JSON.stringify(data);
+    command({ca:jsonString}, insertShow);    
 });
 
+//Callback Select
 function selectShow(response){
     resp = JSON.parse(response);
     if('error' in resp){
@@ -93,8 +97,22 @@ function selectShow(response){
     else{
         data = Object.values(resp[0]);    
         updateTextBox(data);
+    }        
+}
+
+//Callback Insert
+function insertShow(response){
+    console.log(response);
+    resp = JSON.parse(response);
+    if('error' in resp){
+        console.log(resp);
+        //TODO: criar campo para mensagem de erro
     }
-        
+    else{
+        //TODO: selecionar o id do ultimo cliente inserido
+        //data = Object.values(resp[0]);    
+        //updateTextBox(data);
+    }        
 }
 
 function updateTextBox(data){    

@@ -5,8 +5,15 @@ include 'db_class.php';
 $db = new Db();
 
 //CREATE AGENDA RECORD
-if(isset($_POST['ca'])){
-	$data = json_decode($_POST['ca']);	
+if(isset($_POST['ca'])){	
+	$data = json_decode($_POST['ca']);
+	foreach($data as $d){
+		if($d == ''){
+			echo '{"error":"campo vazio!"}';
+			return;
+		}
+	}
+	
 	$m_query = "INSERT INTO `agenda` 
 		(
 			`id`, 
