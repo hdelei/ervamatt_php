@@ -88,6 +88,18 @@ $('#bt-insert').click(function(){
     command({ca:jsonString}, insertShow);    
 });
 
+//Callback Delete
+function deleteShow(response){
+    // resp = JSON.parse(response);
+    // if('error' in resp){
+    //     console.log(resp);
+    // }
+    // else{
+    //     data = Object.values(resp[0]);    
+    //     updateTextBox(data);
+    // }        
+}
+
 //Callback Select
 function selectShow(response){
     resp = JSON.parse(response);
@@ -108,10 +120,9 @@ function insertShow(response){
         console.log(resp);
         //TODO: criar campo para mensagem de erro
     }
-    else{
-        //TODO: selecionar o id do ultimo cliente inserido
-        //data = Object.values(resp[0]);    
-        //updateTextBox(data);
+    else{                
+        data[0] = resp.inserted_id;
+        //TODO: criar campo para mensagem de sucesso
     }        
 }
 

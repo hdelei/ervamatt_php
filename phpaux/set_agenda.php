@@ -33,7 +33,8 @@ if(isset($_POST['ca'])){
 			. $db->quote($data[5]) .");";
 
 	$result = $db->query($m_query);
-	echo resultCheck($result);		
+	//echo resultCheck($result);		
+	echo '{"inserted_id":"'. $result .'"}';		
 }
 //SELECT AGENDA RECORD
 elseif(isset($_POST['ra']) && is_numeric($_POST['ra'])){

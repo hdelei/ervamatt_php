@@ -39,6 +39,10 @@ class Db {
         // Query the database
         $result = $connection -> query($query);
 
+        if(strpos($query, "INSERT INTO") !== false){
+            return $connection->insert_id;
+        }
+
         return $result;
     }
 
