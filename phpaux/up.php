@@ -26,7 +26,16 @@
     </div>
 
     <hr>
-    Registro:<br><input id="c_id" type="text" size="5" placeholder="0">
+    Registro:<br><input id="c_id" type="text" size="5" placeholder="0"><p>
+
+    <div id="show_list">
+        <h3 class="w3-large w3-padding-small">Lista de shows</h3>
+        <ul id="show-ul" class="w3-ul w3-small">
+            <!--<li class="w3-padding-small">10/03/1981 - Santa Brasa</li>-->           
+            
+        </ul>
+        <br>                
+    </div>
   
     
 <!--  Load jquery from cdn -->
@@ -43,12 +52,13 @@
 <script>
 data = [
 		"1", 
-		"Novo Cliente", 
+		"Novo Evento", 
 		"Rua 1", 
 		"2017/03/01", 
 		"10:20:00", 
 		"porao.jpg"
     ];
+showListData = [];
 
 function command(dataStr, cbFunction){   
     $.ajax({
@@ -65,7 +75,7 @@ function command(dataStr, cbFunction){
 }
 
 $('#bt-select').click(function(){	
-    data[0] = $('#c_id').val();//provisório
+    //data[0] = $('#c_id').val();//provisório
 	command({ra:data[0]}, selectShow);           
 });
 $('#bt-update').click(function(){
@@ -85,11 +95,7 @@ $('#bt-delete').click(function(){
     message += dt.date + ' às ' + dt.time;        
     
     if(confirm(message) == true){
-        //var LAST_RECORD = "-1";
-        command({da:data[0]}, deleteShow);
-
-        //Isto não funciona por causa do assincronismo
-        //command({ra:LAST_RECORD}, selectShow);
+        command({da:data[0]}, deleteShow);        
     }        
 });
 $('#bt-insert').click(function(){		
@@ -111,6 +117,7 @@ function deleteShow(response){
     else{
         var LAST_RECORD = "-1";
         command({ra:LAST_RECORD}, selectShow);
+        LoadShowList();  
         //TODO: mensagem de sucesso
     }      
 }
@@ -122,9 +129,9 @@ function selectShow(response){
         //TODO: campo para mensagem de erro
         console.log(resp);
     }
-    else{
+    else if (resp.hasOwnProperty(length)){
         data = Object.values(resp[0]);
-        console.log(data);    
+        //console.log(resp);    
         updateTextBox(data);
     }        
 }
@@ -139,6 +146,7 @@ function insertShow(response){
     }
     else{                
         data[0] = resp.inserted_id;
+        LoadShowList();  
         //TODO: criar campo para mensagem de sucesso
     }        
 }
@@ -151,10 +159,33 @@ function updateShow(response){
         //TODO: criar campo para mensagem de erro
     }
     else{
+        LoadShowList();          
         //TODO: criar campo para mensagem de sucesso
     }        
 }
 
+//CallBack to get show List
+function getShowList(response){
+    resp = JSON.parse(response);
+    if('error' in resp){
+        //TODO: campo para mensagem de erro
+        console.log(resp);
+    }
+    else if (resp.hasOwnProperty(length)){
+        showListData = [];
+        $("#show-ul").empty();
+
+        for(let i in resp){
+            showListData.push(resp[i].id);
+            var dt = formatDateTime(resp[i].date, "00:00:00");
+            var item = dt.date + " - " + resp[i].name;
+            $('#show-ul').append('<li>' + item + '</li>')
+        }
+    reloadListClick();
+    }        
+}
+
+//Update Textboxes on agenda changes
 function updateTextBox(data){    
     $('#local_text').val(data[1]);
     $('#date_text').val(data[3]);
@@ -163,6 +194,14 @@ function updateTextBox(data){
     $('#pic_text').val(data[5]);    
 }
 
+/**
+ *Get the date time for brazilian format
+ *
+ *@param {String} date - the date in international format
+ * [Example] 1980-12-29
+ *@param {String} time [Example] 22:15:01
+ *@returns {Object} dt with two keys: dt.date and dt.time
+  */
 function formatDateTime(date, time){
     var d = new Date(date + 'T' + time);    
     month = '' + (d.getMonth() + 1);    
@@ -180,6 +219,35 @@ function formatDateTime(date, time){
     dt.time = [hour, minute].join(':');    
     return dt;    
 }
+
+//Load text boxes with last event recorded
+function firstTimeLoadAgenda(){
+    var LAST_RECORD = "-1";
+    command({ra:LAST_RECORD}, selectShow);
+}
+
+//load last 30 events in agenda to list
+//Call getshowList() as callback
+function LoadShowList(){
+    command({sl:true}, getShowList);   
+}
+
+//Reloads the list everytime update event data 
+//on insert, update or delete
+function reloadListClick(){
+    $('#show-ul li').off('click');
+    $('#show-ul li').click(function(){
+        let eventIndex = $(this).index();        
+        alert(showListData[eventIndex])
+    });
+}
+
+//Document Ready for first load of page
+$(function(){
+    firstTimeLoadAgenda();
+    LoadShowList();      
+});
+
 </script>
 </body>
 </html> 

@@ -95,6 +95,22 @@ elseif(isset($_POST['da']) && is_numeric($_POST['da'])){
 	$result = $db->query($m_query);	
 	echo resultCheck($result);				
 }
+//GET AGENDA LIST
+elseif(isset($_POST['sl']) && $_POST['sl'] == True){
+	$m_query = "SELECT `date`, `name`, id FROM agenda
+				ORDER BY `date` DESC
+			    LIMIT 30;";			    
+	
+	$result = $db->select($m_query);	
+	
+	if($result){		
+		echo json_encode($result);
+	}
+	else{
+		echo '{"error":"Nenhum resultado para a consulta!"}';
+	}
+	//echo $_GET['sl'];
+}
 else{
 	echo '{"error":"erro de preenchimento!"}';
 }
