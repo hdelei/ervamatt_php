@@ -18,7 +18,7 @@
 <p><div id="agenda_container">
     <div id="form_agenda">
         Local:<br><input id="local_text" type="text" size="26" placeholder="digite o nome" required><br>
-        Data:<br><input id="date_text" type="date" value="" ><br>
+        Data:<br><input id="date_text" type="date" value=""><br>
         Hora:<br><input id="time_text" type="time" value="20:00" ><br>
         Endereço:<br><input id="address_text" type="text" size="26" placeholder="digite o endereço"><br>
         Imagem:<br><input id="pic_text" type="text" size="26" placeholder="selecione abaixo" readonly="true"><br>                  
@@ -65,18 +65,30 @@ function command(dataStr, cbFunction){
 }
 
 $('#bt-select').click(function(){	
-    data[0] = $('#c_id').val();
-	command({ra:data[0]}, selectShow); 
-      
+    data[0] = $('#c_id').val();//provisório
+	command({ra:data[0]}, selectShow);       
 });
 $('#bt-update').click(function(){
-	var jsonString = JSON.stringify(data);	
-    command({ua:jsonString});
-    //TODO: callback function	
+	data[1] = $('#local_text').val();
+    data[3] = $('#date_text').val();
+    data[4] = $('#time_text').val();
+    data[2] = $('#address_text').val();
+    data[5] = $('#pic_text').val();
+    var jsonString = JSON.stringify(data);
+    command({ua:jsonString}, updateShow);	
 });
-$('#bt-delete').click(function(){	
-    command({da:data[0]});
-    //TODO: callback function	
+$('#bt-delete').click(function(){
+    var message = "Você tem certeza que deseja Excluir o evento:\n\n";
+    var dt = formatDateTime(data[3], data[4]);
+    message += data[1] + '\n';
+    message += data[2] + '\n';
+    message += dt.date + ' às ' + dt.time;        
+    
+    if(confirm(message) == true){
+        var LAST_RECORD = "-1";
+        command({da:data[0]}, deleteShow);
+        command({ra:LAST_RECORD}, selectShow);
+    }        
 });
 $('#bt-insert').click(function(){		
     data[1] = $('#local_text').val();
@@ -90,20 +102,20 @@ $('#bt-insert').click(function(){
 
 //Callback Delete
 function deleteShow(response){
-    // resp = JSON.parse(response);
-    // if('error' in resp){
-    //     console.log(resp);
-    // }
-    // else{
-    //     data = Object.values(resp[0]);    
-    //     updateTextBox(data);
-    // }        
+    resp = JSON.parse(response);    
+    if('error' in resp){
+        console.log(resp);
+    }
+    else{
+        //TODO: mensagem de sucesso
+    }        
 }
 
 //Callback Select
 function selectShow(response){
     resp = JSON.parse(response);
     if('error' in resp){
+        //TODO: campo para mensagem de erro
         console.log(resp);
     }
     else{
@@ -114,7 +126,7 @@ function selectShow(response){
 
 //Callback Insert
 function insertShow(response){
-    console.log(response);
+    //console.log(response);
     resp = JSON.parse(response);
     if('error' in resp){
         console.log(resp);
@@ -122,6 +134,18 @@ function insertShow(response){
     }
     else{                
         data[0] = resp.inserted_id;
+        //TODO: criar campo para mensagem de sucesso
+    }        
+}
+
+//Callback Update
+function updateShow(response){    
+    resp = JSON.parse(response);
+    if('error' in resp){
+        console.log(resp);
+        //TODO: criar campo para mensagem de erro
+    }
+    else{
         //TODO: criar campo para mensagem de sucesso
     }        
 }
@@ -134,9 +158,23 @@ function updateTextBox(data){
     $('#pic_text').val(data[5]);    
 }
 
+function formatDateTime(date, time){
+    var d = new Date(date + 'T' + time);    
+    month = '' + (d.getMonth() + 1);    
+    day = '' + (d.getDate());
+    year = d.getFullYear();
+    hour = '' + d.getHours();
+    minute = '' + d.getMinutes(); 
 
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+    if (hour.length < 2) hour = '0' + hour;
+    if (minute.length < 2) minute = '0' + minute;
 
-
+    var dt = {date:[day, month, year].join('/')};
+    dt.time = [hour, minute].join(':');    
+    return dt;    
+}
 </script>
 </body>
 </html> 

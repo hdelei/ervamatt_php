@@ -39,7 +39,15 @@ if(isset($_POST['ca'])){
 //SELECT AGENDA RECORD
 elseif(isset($_POST['ra']) && is_numeric($_POST['ra'])){
 	$id = $_POST['ra'];
-	$m_query = "SELECT * FROM `agenda` WHERE `id`=". $db->quote($id) .";";
+	$m_query = "";
+	if($id == -1){
+		//Return the last event on agenda
+		$m_query = "SELECT * FROM `agenda` WHERE `id`=(SELECT MAX(`id`) FROM `agenda`);";
+	}
+	else{
+		$m_query = "SELECT * FROM `agenda` WHERE `id`=". $db->quote($id) .";";
+	}	
+	
 	$result = $db->select($m_query);
 
 	if($result){
@@ -52,7 +60,13 @@ elseif(isset($_POST['ra']) && is_numeric($_POST['ra'])){
 }
 //UPDATE AGENDA
 elseif(isset($_POST['ua'])){
-	$data = json_decode($_POST['ua']);	
+	$data = json_decode($_POST['ua']);
+	foreach($data as $d){
+		if($d == ''){
+			echo '{"error":"campo vazio!"}';
+			return;
+		}
+	}
 	if(is_numeric($data[0])){
 		$m_query = "UPDATE `agenda` SET `name` = " . $db->quote($data[1]) . "," .
 				   "`address` = " . $db->quote($data[2]) . ",".
