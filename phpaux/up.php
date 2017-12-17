@@ -66,7 +66,7 @@ function command(dataStr, cbFunction){
 
 $('#bt-select').click(function(){	
     data[0] = $('#c_id').val();//provisório
-	command({ra:data[0]}, selectShow);       
+	command({ra:data[0]}, selectShow);           
 });
 $('#bt-update').click(function(){
 	data[1] = $('#local_text').val();
@@ -85,9 +85,11 @@ $('#bt-delete').click(function(){
     message += dt.date + ' às ' + dt.time;        
     
     if(confirm(message) == true){
-        var LAST_RECORD = "-1";
+        //var LAST_RECORD = "-1";
         command({da:data[0]}, deleteShow);
-        command({ra:LAST_RECORD}, selectShow);
+
+        //Isto não funciona por causa do assincronismo
+        //command({ra:LAST_RECORD}, selectShow);
     }        
 });
 $('#bt-insert').click(function(){		
@@ -107,8 +109,10 @@ function deleteShow(response){
         console.log(resp);
     }
     else{
+        var LAST_RECORD = "-1";
+        command({ra:LAST_RECORD}, selectShow);
         //TODO: mensagem de sucesso
-    }        
+    }      
 }
 
 //Callback Select
@@ -119,7 +123,8 @@ function selectShow(response){
         console.log(resp);
     }
     else{
-        data = Object.values(resp[0]);    
+        data = Object.values(resp[0]);
+        console.log(data);    
         updateTextBox(data);
     }        
 }
