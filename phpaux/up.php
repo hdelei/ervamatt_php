@@ -226,26 +226,26 @@ function firstTimeLoadAgenda(){
     command({ra:LAST_RECORD}, selectShow);
 }
 
-//load last 30 events in agenda to list
+//load last 30 events in agenda to lista de shows
 //Call getshowList() as callback
 function LoadShowList(){
     command({sl:true}, getShowList);   
 }
 
-//Reloads the list everytime update event data 
-//on insert, update or delete
+//Reload click listener for Lista de Shows
 function reloadListClick(){
     $('#show-ul li').off('click');
     $('#show-ul li').click(function(){
-        let eventIndex = $(this).index();        
-        alert(showListData[eventIndex])
+        //When clicked, update textboxes 
+        let eventId = $(this).index(); 
+        command({ra:showListData[eventId]}, selectShow);        
     });
 }
 
 //Document Ready for first load of page
 $(function(){
     firstTimeLoadAgenda();
-    LoadShowList();      
+    LoadShowList();          
 });
 
 </script>
