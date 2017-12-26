@@ -33,17 +33,6 @@ function thumbHoverable(){
 thumbClickable();
 thumbHoverable();    
 
-//Ainda não implementado
-function addShow(){
-    window.alert("Show adicionado");
-}
-function updateShow(){
-    window.alert("Show atualizado");
-}
-function deleteShow(){
-    window.alert("Show deletado");
-}
-    
 //set default date and time for agenda
 var now = new Date();
 var day = ("0" + now.getDate()).slice(-2);
@@ -65,7 +54,8 @@ $('input[name=arquivo]').change(function() {
 		file_size = $('#file_input')[0].files[0].size;
 		if(file_size > 1000000){
 			$('#file_input')[0].value = "";
-			window.alert("O arquivo excede o limite máximo de 1 Mega Byte!");
+			$.notify("O arquivo excede o limite máximo de 1 Mega Byte!", "warn");
+			//window.alert("O arquivo excede o limite máximo de 1 Mega Byte!");
 			$('#btChoose').text("Selecionar"); 
 		}		
 	}
@@ -115,11 +105,13 @@ function manageResponse(response){
 			
 		//Loga 
 		$('#log-ul').append('<li class="w3-padding-small">Imagem \"' + uploadedImage + '"\ enviada com sucesso.</li>');
+		$.notify("Imagem enviada com sucesso", "success");
 	}
 	else{
 		//Loga
 		$('#log-ul').append('<li class="w3-padding-small">Erro: ' + resp.error + '</li>');   
-		window.alert(resp.error);
+		$.notify(resp.error, "error");
+		//window.alert(resp.error);
 	}
 }
 
@@ -142,9 +134,221 @@ function galleryResquest(position){
 		if(response == ''){
 			galleryPosition = 0;
 			galleryResquest(galleryPosition);
-		}
-		//$('#count_gallery').html((galleryPosition+1) + "-" + (galleryPosition+12));
+		}		
 		thumbClickable();
 		thumbHoverable();
 	});		
 }
+
+/* --------------------------------------------------
+*	À partir daqui inicia-se o CRUD da agenda de shows
+*/
+
+data = [
+	"1", 
+	"Novo Evento", 
+	"Rua 1", 
+	"2017/03/01", 
+	"10:20:00", 
+	"porao.jpg"
+];
+showListData = [];
+
+function command(dataStr, cbFunction){   
+$.ajax({
+	type: "POST",
+	url: "set_agenda.php",
+	data: dataStr,
+	cache: false,
+
+	success: function(response){
+		//console.log(response);
+		cbFunction(response);		            
+	}
+});
+}
+
+// $('#bt-select').click(function(){	
+// 	//data[0] = $('#c_id').val();//provisório
+// 	command({ra:data[0]}, selectShow);           
+// });
+
+$('#bt-update').click(function(){
+	data[1] = $('#local_text').val();
+	data[3] = $('#datePicker').val();
+	data[4] = $('#timePicker').val();
+	data[2] = $('#address_text').val();
+	data[5] = $('#pic_text').val();
+	var jsonString = JSON.stringify(data);
+	command({ua:jsonString}, updateShow);	
+});
+
+$('#bt-delete').click(function(){
+	var message = "Você tem certeza que deseja Excluir o evento:\n\n";
+	var dt = formatDateTime(data[3], data[4]);
+	message += data[1] + '\n';
+	message += data[2] + '\n';
+	message += dt.date + ' às ' + dt.time;        
+
+	if(confirm(message) == true){
+		command({da:data[0]}, deleteShow);        
+	}        
+});
+
+$('#bt-insert').click(function(){		
+	data[1] = $('#local_text').val();
+	data[3] = $('#datePicker').val();
+	data[4] = $('#timePicker').val();
+	data[2] = $('#address_text').val();
+	data[5] = $('#pic_text').val();
+	var jsonString = JSON.stringify(data);
+	command({ca:jsonString}, insertShow);    
+});
+
+//Callback Delete
+function deleteShow(response){
+	resp = JSON.parse(response);    
+	if('error' in resp){
+		$.notify(resp.error, "error");
+		$('#log-ul').append('<li class="w3-padding-small">' + resp.error +  '</li>');
+		//console.log(resp);
+	}
+	else{
+		var LAST_RECORD = "-1";
+		command({ra:LAST_RECORD}, selectShow);
+		LoadShowList();  
+		$.notify("Evento deletado com sucesso.","success");	
+		$('#log-ul').append('<li class="w3-padding-small">Evento deletado com sucesso.</li>');	
+	}      
+}
+
+//Callback Select
+function selectShow(response){
+resp = JSON.parse(response);
+if('error' in resp){
+	$.notify(resp.error,"warn");
+	$('#log-ul').append('<li class="w3-padding-small">'+ resp.error +'</li>');	
+}
+else if (resp.hasOwnProperty(length)){
+	data = Object.values(resp[0]);
+	//console.log(resp);    
+	updateTextBox(data);	
+}        
+}
+
+//Callback Insert
+function insertShow(response){
+	//console.log(response);
+	resp = JSON.parse(response);
+	if('error' in resp){
+		//console.log(resp);
+		$.notify(resp.error,"warn");
+		$('#log-ul').append('<li class="w3-padding-small">' + resp.error + '</li>');	
+	}
+	else{                
+		data[0] = resp.inserted_id;
+		LoadShowList();  
+		$.notify("Evento adicionado com sucesso.","success");
+		$('#log-ul').append('<li class="w3-padding-small">Evento adicionado com sucesso.</li>');	
+	}        
+}
+
+//Callback Update
+function updateShow(response){    
+	resp = JSON.parse(response);
+	if('error' in resp){
+		//console.log(resp);
+		$.notify(resp.error,"error");
+		$('#log-ul').append('<li class="w3-padding-small">'+ resp.error +'</li>');	
+	}
+	else{
+		LoadShowList();          
+		$.notify("Evento atualizado com sucesso.","success");
+		$('#log-ul').append('<li class="w3-padding-small">Evento atualizado com sucesso.</li>');	
+	}        
+}
+
+//CallBack to get show List
+function getShowList(response){
+resp = JSON.parse(response);
+if('error' in resp){
+	$.notify(resp.error,"error");
+	$('#log-ul').append('<li class="w3-padding-small">'+ resp.error +'</li>');	
+}
+else if (resp.hasOwnProperty(length)){
+	showListData = [];
+	$("#show-ul").empty();
+
+	for(let i in resp){
+		showListData.push(resp[i].id);
+		var dt = formatDateTime(resp[i].date, "00:00:00");
+		var item = dt.date + " - " + resp[i].name;
+		$('#show-ul').append('<li>' + item + '</li>')
+	}
+	reloadListClick();
+	}        
+}
+
+//Update Textboxes on agenda changes
+function updateTextBox(data){    
+$('#local_text').val(data[1]);
+$('#datePicker').val(data[3]);
+$('#timePicker').val(data[4]);
+$('#address_text').val(data[2]);
+$('#pic_text').val(data[5]);  
+$('#img_large').attr('src', '/img/agenda/' + data[5]);
+}
+
+/**
+*Get the date time for brazilian format
+*
+*@param {String} date - the date in international format
+* [Example] 1980-12-29
+*@param {String} time [Example] 22:15:01
+*@returns {Object} dt with two keys: dt.date and dt.time
+*/
+function formatDateTime(date, time){
+var d = new Date(date + 'T' + time);    
+month = '' + (d.getMonth() + 1);    
+day = '' + (d.getDate());
+year = d.getFullYear();
+hour = '' + d.getHours();
+minute = '' + d.getMinutes(); 
+
+if (month.length < 2) month = '0' + month;
+if (day.length < 2) day = '0' + day;
+if (hour.length < 2) hour = '0' + hour;
+if (minute.length < 2) minute = '0' + minute;
+
+var dt = {date:[day, month, year].join('/')};
+dt.time = [hour, minute].join(':');    
+return dt;    
+}
+
+//Load text boxes with last event recorded
+function firstTimeLoadAgenda(){
+var LAST_RECORD = "-1";
+command({ra:LAST_RECORD}, selectShow);
+}
+
+//load last 30 events in agenda to lista de shows
+//Call getshowList() as callback
+function LoadShowList(){
+command({sl:true}, getShowList);   
+}
+
+//Reload click listener for Lista de Shows
+function reloadListClick(){
+$('#show-ul li').off('click');
+$('#show-ul li').click(function(){
+	//When clicked, update textboxes 
+	let eventId = $(this).index(); 
+	command({ra:showListData[eventId]}, selectShow);        
+});
+}
+
+//Document Ready for first load of page
+$(function(){
+firstTimeLoadAgenda();
+LoadShowList();          
+});

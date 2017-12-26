@@ -174,10 +174,10 @@
   <p class="w3-large">
   <p><div id="agenda_container">
     <div id="form_agenda">
-        Local:<br><input type="text" size="26" placeholder="digite o nome"><br>
+        Local:<br><input id="local_text" type="text" size="26" placeholder="digite o nome"><br>
         Data:<br><input id="datePicker" type="date" value="" ><br>
         Hora:<br><input id="timePicker" type="time" value="20:00" ><br>
-        Endereço:<br><input type="text" size="26" placeholder="digite o endereço"><br>
+        Endereço:<br><input id="address_text" type="text" size="26" placeholder="digite o endereço"><br>
         Imagem:<br><input id="pic_text" type="text" size="26" placeholder="selecione abaixo" readonly="true"><br>                  
         <!--<input type="file" name="pic" accept="image/*">-->
     </div>
@@ -188,29 +188,19 @@
     
     <div id="show_list">
         <h3 class="w3-large w3-padding-small">Lista de shows</h3>
-        <ul class="w3-ul w3-small">
-            <li class="w3-padding-small">10/03/1981 - Santa Brasa</li>
-            <li class="w3-padding-small">10/03/1981 - Porão do Rock</li>
-            <li class="w3-padding-small">10/03/1981 - Favela Chik</li>
-            <li class="w3-padding-small">10/03/1981 - Santa Brasa</li>
-            <li class="w3-padding-small">10/03/1981 - João Rock</li>
-            <li class="w3-padding-small">10/03/1981 - Santa Brasa</li>
-            <li class="w3-padding-small">10/03/1981 - Porão do Rock</li>
-            <li class="w3-padding-small">10/03/1981 - Favela Chik</li>
-            <li class="w3-padding-small">10/03/1981 - Santa Brasa</li>
-            <li class="w3-padding-small">10/03/1981 - João Rock</li>
+        <ul id="show-ul" class="w3-ul w3-small">
+            <li class="w3-padding-small">Sem eventos nos próximos dias</li>
         </ul>
         <br>                
     </div>
   </div>  
   
   <div>
-	<a class="w3-button w3-theme w3-hover-white" onclick="addShow()">Incluir</a>
-	<a class="w3-button w3-theme-d4 w3-hover-white" onclick="updateShow()">Atualizar</a>
-	<a class="w3-button w3-theme-red w3-hover-white" onclick="deleteShow()">Deletar</a>
+	<a id="bt-insert" class="w3-button w3-theme w3-hover-white">Incluir</a>
+	<a id="bt-update" class="w3-button w3-theme-d4 w3-hover-white">Atualizar</a>
+	<a id="bt-delete" class="w3-button w3-theme-red w3-hover-white">Deletar</a>
     <a class="w3-button w3-theme-d1 w3-hover-white" href="javascript:void(0)" onclick="w3_open();openNav('nav02')">Foto</a>
-  </div>
-    
+  </div>    
 </div>
 
 <div id="historia" class="w3-container w3-padding-large w3-section w3-light-grey">
@@ -284,8 +274,13 @@ function openNav(id) {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
 <!--<script src="/js/jquery.form.js"></script>-->
 
+<!-- Load Notify.js-->
+<script src="/js/notify.min.js"></script>
+
 <!--  Load main javascript -->
 <script src="/js/painel.js"></script>
+
+
     
 <!--<script>
 //Change image on click perform
