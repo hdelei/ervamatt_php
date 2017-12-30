@@ -275,65 +275,6 @@ function openNav(id) {
 <!--  Load main javascript -->
 <script src="/js/painel.js"></script>
 
-
-<script>
-//     $('#bt-historia-edit').click(function() {
-//         $('#historia-text').attr('contentEditable', true);
-//         $('#bt-historia-edit').text('Edição desbloqueada');
-//         $('#historia-text').focus();        
-//     });
-
-//     $('#bt-historia-save').click(function() {
-//         $('#historia-text').attr('contentEditable', true);        
-//         $('#bt-historia-edit').text('Editar');
-        
-//         var text = $('#historia-text').text().trim();        
-//         commandHistoria({uh:text}, cbUpdateHistoria);        
-//     });
-
-//     //Update Historia callback
-//     function cbUpdateHistoria(response){    
-//         resp = JSON.parse(response);
-//         if('error' in resp){            
-//             $.notify(resp.error,"error");
-//             $('#log-ul').append('<li class="w3-padding-small">'+ resp.error +'</li>');	
-//         }
-//         else{                  
-//             $.notify("Historia tualizada com sucesso.","success");
-//             $('#log-ul').append('<li class="w3-padding-small">Historia atualizado com sucesso.</li>');	
-//         }
-//     }   
-    
-//     function loadHistoria(){
-//         commandHistoria({rh:true}, cbLoadHistoria);
-//     }
-
-//     function cbLoadHistoria(response){
-//         resp = JSON.parse(response);
-//         if('error' in resp){
-//             $('#log-ul').append('<li class="w3-padding-small">Error ao carregar história.</li>');	
-//         }            
-//         else{
-//             $('#historia-text').text(resp.text)
-//         }
-//     }
-
-//     function commandHistoria(dataStr, cbFunction){   
-//         $.ajax({
-//         type: "POST",
-//         url: "set_historia.php",
-//         data: dataStr,
-//         cache: false,
-
-//         success: function(response){            
-//             cbFunction(response);	           	            
-//         }
-//     });
-// }
-</script>
-
-
-
 <script type="text/javascript" src="/js/jquery.lazyloadxt.min.js"></script>
 	
 	<script>
