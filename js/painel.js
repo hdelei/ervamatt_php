@@ -154,6 +154,7 @@ data = [
 ];
 showListData = [];
 
+//Main ajax
 function command(dataStr, cbFunction){   
 $.ajax({
 	type: "POST",
@@ -339,16 +340,75 @@ command({sl:true}, getShowList);
 
 //Reload click listener for Lista de Shows
 function reloadListClick(){
-$('#show-ul li').off('click');
-$('#show-ul li').click(function(){
-	//When clicked, update textboxes 
-	let eventId = $(this).index(); 
-	command({ra:showListData[eventId]}, selectShow);        
-});
+	$('#show-ul li').off('click');
+	$('#show-ul li').click(function(){
+		//When clicked, update textboxes 
+		let eventId = $(this).index(); 
+		command({ra:showListData[eventId]}, selectShow);        
+	});
 }
+
+/*
+	Início da sessão de atualização da história
+*/
+
+$('#bt-historia-edit').click(function() {
+	$('#historia-text').attr('contentEditable', true);
+	$('#bt-historia-edit').text('Edição desbloqueada');
+	$('#historia-text').focus();        
+});
+
+$('#bt-historia-save').click(function() {
+	var text = $('#historia-text').text().trim();        
+	commandHistoria({uh:text}, cbUpdateHistoria);        
+});
+
+//Update Historia callback
+function cbUpdateHistoria(response){    
+	resp = JSON.parse(response);
+	if('error' in resp){            
+		$.notify(resp.error,"error");
+		$('#log-ul').append('<li class="w3-padding-small">'+ resp.error +'</li>');	
+	}
+	else{                  
+		$.notify("Historia tualizada com sucesso.","success");
+		$('#log-ul').append('<li class="w3-padding-small">Historia atualizado com sucesso.</li>');
+		$('#historia-text').attr('contentEditable', false);        
+		$('#bt-historia-edit').text('Editar');	
+	}
+}   
+
+function loadHistoria(){
+	commandHistoria({rh:true}, cbLoadHistoria);
+}
+
+function cbLoadHistoria(response){
+	resp = JSON.parse(response);
+	if('error' in resp){
+		$('#log-ul').append('<li class="w3-padding-small">Error ao carregar história.</li>');	
+	}            
+	else{
+		$('#historia-text').text(resp.text)
+	}
+}
+
+function commandHistoria(dataStr, cbFunction){   
+	$.ajax({
+		type: "POST",
+		url: "set_historia.php",
+		data: dataStr,
+		cache: false,
+
+		success: function(response){            
+			cbFunction(response);	           	            
+		}
+	});
+}
+
 
 //Document Ready for first load of page
 $(function(){
-firstTimeLoadAgenda();
-LoadShowList();          
+	firstTimeLoadAgenda();
+	LoadShowList();
+	loadHistoria();                
 });

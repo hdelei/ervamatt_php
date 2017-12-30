@@ -206,17 +206,12 @@
 <div id="historia" class="w3-container w3-padding-large w3-section w3-light-grey">
   <h1 class="w3-jumbo">História</h1>
   <p class="w3-xlarge">Fale sobre a banda Erva Matt</p>
-  <a href="/js/default.asp" class="w3-button w3-theme w3-hover-white">LEARN JS</a>
-  <a href="/jsref/default.asp" class="w3-button w3-theme w3-hover-white">JS REFERENCE</a>
+  <a id="bt-historia-edit" class="w3-button w3-theme w3-hover-white">Editar</a>
+  <a id="bt-historia-save" class="w3-button w3-theme-d4 w3-hover-white">Salvar</a>
 
-  <p><div class="w3-code jsHigh notranslate">
-   // Click the button to change the color of this paragraph<br><br>function myFunction() {<br>
-      var x;<br>
-      x = document.getElementById("demo");<br>
-      x.style.fontSize = "25px"; <br>
-      x.style.color = "red"; <br>}
-  </div>
-  <a class="w3-button w3-theme w3-hover-white" href="/js/tryit.asp?filename=tryjs_default" target="_blank">Try it Yourself</a>
+  <p><div id="historia-text" class="w3-code jsHigh notranslate" contentEditable="false">
+    História não definida
+  </div>  
 </div>
 
 <div id="youtube" class="w3-container w3-padding-large w3-section w3-light-grey">
@@ -281,124 +276,63 @@ function openNav(id) {
 <script src="/js/painel.js"></script>
 
 
+<script>
+//     $('#bt-historia-edit').click(function() {
+//         $('#historia-text').attr('contentEditable', true);
+//         $('#bt-historia-edit').text('Edição desbloqueada');
+//         $('#historia-text').focus();        
+//     });
+
+//     $('#bt-historia-save').click(function() {
+//         $('#historia-text').attr('contentEditable', true);        
+//         $('#bt-historia-edit').text('Editar');
+        
+//         var text = $('#historia-text').text().trim();        
+//         commandHistoria({uh:text}, cbUpdateHistoria);        
+//     });
+
+//     //Update Historia callback
+//     function cbUpdateHistoria(response){    
+//         resp = JSON.parse(response);
+//         if('error' in resp){            
+//             $.notify(resp.error,"error");
+//             $('#log-ul').append('<li class="w3-padding-small">'+ resp.error +'</li>');	
+//         }
+//         else{                  
+//             $.notify("Historia tualizada com sucesso.","success");
+//             $('#log-ul').append('<li class="w3-padding-small">Historia atualizado com sucesso.</li>');	
+//         }
+//     }   
     
-<!--<script>
-//Change image on click perform
-var def = $('#img_large').attr('src');
+//     function loadHistoria(){
+//         commandHistoria({rh:true}, cbLoadHistoria);
+//     }
 
-function thumbClickable(){
-	$('.thumb_a').click(function(){
-		var imgName = $(this).attr('src');
-		def = imgName;
-		$('#img_large').attr('src', imgName);
-		//console.log(imgName);
-		imgName = imgName.split('\/');    
-		$('#pic_text').val(imgName[imgName.length-1]);
-		//blink color of background
-		setTimeout(function(){
-			$('#pic_text').css('background-color', 'white');;
-		}, 1200);
-		$('#pic_text').css('background-color', '#4dff4d');
-	});	
-}
+//     function cbLoadHistoria(response){
+//         resp = JSON.parse(response);
+//         if('error' in resp){
+//             $('#log-ul').append('<li class="w3-padding-small">Error ao carregar história.</li>');	
+//         }            
+//         else{
+//             $('#historia-text').text(resp.text)
+//         }
+//     }
 
-function thumbHoverable(){
-	//Change image hover effect
-	$('.thumb_a').hover(function(){    
-		var img1 = $(this).attr('src');
-		$('#img_large').attr('src', img1);
-		}, function(){    
-		$('#img_large').attr('src', def);
-	});
-}
+//     function commandHistoria(dataStr, cbFunction){   
+//         $.ajax({
+//         type: "POST",
+//         url: "set_historia.php",
+//         data: dataStr,
+//         cache: false,
 
-thumbClickable();
-thumbHoverable();
-    
-
-function addShow(){
-    window.alert("Show adicionado");
-}
-function updateShow(){
-    window.alert("Show atualizado");
-}
-function deleteShow(){
-    window.alert("Show deletado");
-}
-    
-//set default date and time for agenda
-var now = new Date();
-var day = ("0" + now.getDate()).slice(-2);
-var month = ("0" + (now.getMonth() + 1)).slice(-2);
-var today = now.getFullYear()+"-"+(month)+"-"+(day);
-$('#datePicker').val(today);
-
-//Upload de imagens
-$('input[name=arquivo]').change(function() {
-	simple_name = $(this).val().split('\\').pop(); 
-	if(simple_name == "")
-		$('#btChoose').text("Selecionar");   
-	else
-		$('#btChoose').text(simple_name);   
-});
-
-$('#btChoose').click(function() {
-    $('input[name=arquivo]').click();
-});
-
-$('#btUpload').click(function() {
-    $('input[type=submit]').click();
-});
-    
+//         success: function(response){            
+//             cbFunction(response);	           	            
+//         }
+//     });
+// }
 </script>
 
 
-<script src="/js/jquery.form.js"></script>
-
-<script> 
-    // wait for the DOM to be loaded 
-    $(document).ready(function() { 
-        // bind 'myForm' and provide a simple callback function 
-        $('#upIMage').ajaxForm({                 
-			complete: function(xhr) {				
-				manageResponse(xhr.responseText);				
-			},			
-			error: function(xhr){				
-				xhr.responseText = '{"error":"Erro desconhecido! Se o problema persistir, contate o administrador."}';
-			}
-        }); 
-    });
-	
-	function manageResponse(response){
-		var resp = JSON.parse(response);	
-		
-		if(!("error" in resp)){
-			var htmlStr = "";
-			for (i in resp){
-				//console.log(resp[i]);
-				htmlStr += '<div class="sl_thumb"><img class="thumb_a" src="/img/agenda/' + resp[i] + '"></div>';				
-			}			
-			$('#pic_slide').html(htmlStr);
-			thumbClickable();
-			thumbHoverable();
-			
-			//set uploaded image in preview
-			uploadedImage = $('#btChoose').text().toLowerCase();
-			$('#img_large').attr('src', '/img/agenda/' + uploadedImage);
-			$('#pic_text').val(uploadedImage);
-			
-			//corrige a margem após o upload
-			$('.sl_thumb').css('margin-right','5px');
-			
-			//Loga 
-			$('#log-ul').append('<li class="w3-padding-small">Imagem \"' + uploadedImage + '"\ enviada com sucesso.</li>');
-		}
-		else{
-			$('#log-ul').append('<li class="w3-padding-small">Erro: ' + resp.error + '</li>');   
-			window.alert(resp.error);
-		}
-	}
-</script> -->
 
 <script type="text/javascript" src="/js/jquery.lazyloadxt.min.js"></script>
 	
@@ -411,8 +345,7 @@ $('#btUpload').click(function() {
 	
 	
 	<script>
-		galleryPosition = 0;	
-	
+		galleryPosition = 0;
 	</script>
 
 </body>
