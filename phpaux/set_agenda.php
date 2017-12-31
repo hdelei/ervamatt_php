@@ -54,7 +54,7 @@ elseif(isset($_POST['ra']) && is_numeric($_POST['ra'])){
 		echo json_encode($result);
 	}
 	else{
-		echo '{"error":"Nenhum cliente com este numero!"}';
+		echo '{"error":"Nenhum resultado com este ID!"}';
 	}
 	
 }

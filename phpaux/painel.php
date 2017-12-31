@@ -115,13 +115,9 @@
 <div id="nav02">
 	<div style="padding:5px">
 	Selecione uma imagem:
-	</div>
-	
-  <!--<a class="w3-bar-item w3-button" target="_blank" href="tryw3css_templates_black.htm"><img src="/img/agenda/1.jpg" style="width:100%;"></a>
-  <a class="w3-bar-item w3-button" target="_blank" href="tryw3css_examples_album.htm"><img src="img_demo_summer.jpg" style="width:100%;"></a>
-  <a class="w3-bar-item w3-button" target="_blank" href="tryw3css_examples_blog.htm"><img src="img_demo_blog.jpg" style="width:100%;"></a>-->
-  
-  <div id="pic_slide">
+	</div>	
+  <!--<a class="w3-bar-item w3-button" target="_blank" href="tryw3css_templates_black.htm">
+  <img src="/img/agenda/1.jpg" style="width:100%;"></a>
 	<?php 
 	$_GET['position'] = 0;
 	include 'adm_galeria.php'
