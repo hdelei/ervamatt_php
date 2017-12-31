@@ -93,17 +93,19 @@ body{
 
 
 <script>
+    
+    linkForTitle = 'https://www.googleapis.com/youtube/v3/videos?id=SET_NEW_ID';
+    linkForTitle += '&key=AIzaSyApyjodUSvYUvqYFB3r41ebNpg_LVc9R9Q&fields=items';
+    linkForTitle += '(id,snippet(title),statistics)&part=snippet,statistics';
+
     //Muda o vídeo, solicita o titulo
     function changeVideo(newId){
         var srcUrl = "http://www.youtube.com/embed/"+ newId +"?rel=0&hd=1";        
         $('#video-id').attr('src', srcUrl);
 
-        var linkForTitle = 'https://www.googleapis.com/youtube/v3/videos?id=';
-        linkForTitle += newId;
-        linkForTitle += '&key=AIzaSyApyjodUSvYUvqYFB3r41ebNpg_LVc9R9Q&fields=items';
-        linkForTitle += '(id,snippet(title),statistics)&part=snippet,statistics';
+        var apiLink = linkForTitle.replace('SET_NEW_ID', newId);        
 
-        titleRequest(linkForTitle);  
+        titleRequest(apiLink);  
         
         //setThumb('https://img.youtube.com/vi/'+ newId +'/3.jpg');     
     }
