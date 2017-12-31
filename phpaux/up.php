@@ -68,7 +68,7 @@ body{
     <h3 id="video-title"></h3>
 </div>
 <p>
-<div><img id="actual-thumb" src=""></div>
+<!--<div><img id="actual-thumb" src=""></div>-->
 
 
 <div id="video_list">
@@ -93,15 +93,9 @@ body{
 
 
 <script>
-    //Muda o vídeo, solicita o titulo e o thumbnail
+    //Muda o vídeo, solicita o titulo
     function changeVideo(newId){
-        var srcUrl = "http://www.youtube.com/embed/"+ newId +"?rel=0&hd=1";
-        //var srcVideo = $('#video-id').attr('src');
-        //var idInit = srcVideo.search('embed/') + 6;
-        //var idEnd = srcVideo.search('rel=') - 1;
-        //var actualId = srcVideo.substring(idInit, idEnd);        
-        //newId = 'Q0oIoR9mLwc';
-        //srcVideo = srcVideo.replace(actualId, newId);
+        var srcUrl = "http://www.youtube.com/embed/"+ newId +"?rel=0&hd=1";        
         $('#video-id').attr('src', srcUrl);
 
         var linkForTitle = 'https://www.googleapis.com/youtube/v3/videos?id=';
@@ -109,7 +103,7 @@ body{
         linkForTitle += '&key=AIzaSyApyjodUSvYUvqYFB3r41ebNpg_LVc9R9Q&fields=items';
         linkForTitle += '(id,snippet(title),statistics)&part=snippet,statistics';
 
-        titleRequest(linkForTitle);   
+        titleRequest(linkForTitle);  
         
         //setThumb('https://img.youtube.com/vi/'+ newId +'/3.jpg');     
     }
@@ -146,6 +140,34 @@ body{
         //cv: create video
         videoAjaxRequest({cv:youtubeID}, cbInsertVideo);            
     });
+
+    $('#bt-delete-video').click(function(){
+        var message = "Você tem certeza que deseja Excluir o vídeo:\n\n";
+        
+        message += $('#video-title').text();	
+
+        if(confirm(message) == true){
+            videoAjaxRequest({dv:videoData[0]}, deleteVideo);        
+        }        
+    });
+
+    function deleteVideo(response){
+        resp = JSON.parse(response);    
+        if('error' in resp){
+            $.notify(resp.error, "error");
+            $('#log-ul').append('<li class="w3-padding-small">' + resp.error +  '</li>');
+            //console.log(resp);
+        }
+        else{
+            var LAST_RECORD = "-1";
+            videoAjaxRequest({rv:LAST_RECORD}, selectVideo);
+            loadVideoList();  
+            $.notify("Vídeo deletado com sucesso.","success");	
+            $('#log-ul').append('<li class="w3-padding-small">Vídeo deletado com sucesso.</li>');	
+        }      
+    }
+
+
 
     //Callback: Insert Video
     function cbInsertVideo(response){     
