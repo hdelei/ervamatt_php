@@ -12,7 +12,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "SELECT text from historia ORDER BY id DESC LIMIT 1;";
+$sql = "SELECT text from historia ORDER BY id LIMIT 1;";
 
 $result = $conn->query($sql);
 
@@ -28,7 +28,4 @@ if(mysqli_num_rows($result) > 0){
 }
 
 $conn->close();
-
-//echo json_encode($historia_row);
-
 ?>

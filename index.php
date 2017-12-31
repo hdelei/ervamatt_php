@@ -150,8 +150,7 @@
         <div style="height:30px;"></div>  
         <div style="max-width:1200px; text-align:center;"><h1 id="historia_title">História</h1></div>
 
-        <div id="historia_div">
-            teste
+        <div id="historia_div">            
             <!--<p class="recuo"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc at dictum ligula, in condimentum arcu. Nam condimentum, ante eu auctor viverra, risus mi aliquet turpis, a tincidunt nisi leo nec purus. Quisque dapibus aliquam urna, ac scelerisque odio ultricies vitae. Cras tempus cursus interdum. Suspendisse eget libero lorem. Duis viverra, magna eget viverra varius, sem mi laoreet justo, vitae aliquam neque tellus et purus. Sed vel nunc pulvinar, commodo libero eu, accumsan magna. Praesent sed iaculis erat, sed viverra nulla. Proin congue egestas cursus. Sed sed orci ut eros pulvinar aliquet id quis tellus. Nam neque risus, faucibus nec tellus a, lacinia porttitor quam. Suspendisse nec lacus scelerisque mi tincidunt pellentesque eu id nisi.</p>
 
             <p class="recuo">Morbi lorem metus, ullamcorper id nisi nec, tempus eleifend nisl. Etiam sodales sit amet sapien eget accumsan. Etiam sed aliquet enim. Pellentesque laoreet dignissim imperdiet. Aliquam erat volutpat. Duis finibus, ipsum a posuere gravida, magna mauris luctus dui, in maximus tortor erat eget urna. Nullam faucibus bibendum mattis. Nunc ac pellentesque metus. Phasellus ac feugiat eros, quis tincidunt massa. Praesent aliquet pharetra sapien, quis congue enim sodales in. Donec et varius nisl. Pellentesque a risus mauris. Nam eget ipsum at diam ultricies euismod.</p>
