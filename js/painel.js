@@ -358,8 +358,10 @@ $('#bt-historia-edit').click(function() {
 	$('#historia-text').focus();        
 });
 
-$('#bt-historia-save').click(function() {
-	var text = $('#historia-text').text().trim();        
+$('#bt-historia-save').click(function() {	     
+	var text = $('#historia-text').html();
+	text = text.replace(/<div>/gi, '<p class="recuo">');
+	text = text.replace(/<\/div>/gi, '<p/>');
 	commandHistoria({uh:text}, cbUpdateHistoria);        
 });
 
@@ -372,7 +374,7 @@ function cbUpdateHistoria(response){
 	}
 	else{                  
 		$.notify("Historia tualizada com sucesso.","success");
-		$('#log-ul').append('<li class="w3-padding-small">Historia atualizado com sucesso.</li>');
+		$('#log-ul').append('<li class="w3-padding-small">Historia atualizada com sucesso.</li>');
 		$('#historia-text').attr('contentEditable', false);        
 		$('#bt-historia-edit').text('Editar');	
 	}
@@ -387,8 +389,8 @@ function cbLoadHistoria(response){
 	if('error' in resp){
 		$('#log-ul').append('<li class="w3-padding-small">Error ao carregar história.</li>');	
 	}            
-	else{
-		$('#historia-text').text(resp.text)
+	else{		
+		$('#historia-text').html(resp.text);
 	}
 }
 

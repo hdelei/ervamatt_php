@@ -51,9 +51,9 @@
         border: 1px solid lightgray;
         color:gray;    
         /*overflow: auto; */
-		flex: 1;
+		    flex: 1;
     }    
-    #show_list {
+    #show_list {        
         max-height: 278px;		
         padding:5px;                
         background-color: #eaebed;
@@ -64,7 +64,15 @@
         color:gray;    
         overflow-x: auto;
         min-width: 260px;		
-		flex: 1;		
+		    flex: 1;		
+    }
+    #show_list li{
+      cursor:pointer;
+    }
+    #show_list li:hover{
+      background-color: #408c45;
+      color:#FFF;
+      border-radius: 3px;
     }
 	@media screen and (max-width:890px) { 
 		#show_list {			
@@ -189,7 +197,7 @@
     <div id="show_list">
         <h3 class="w3-large w3-padding-small">Lista de shows</h3>
         <ul id="show-ul" class="w3-ul w3-small">
-            <li class="w3-padding-small">Sem eventos nos próximos dias</li>
+            <li class="w3-padding-small event-list">Sem eventos nos próximos dias</li>
         </ul>
         <br>                
     </div>
