@@ -117,8 +117,10 @@
 	Selecione uma imagem:
 	</div>	
   <!--<a class="w3-bar-item w3-button" target="_blank" href="tryw3css_templates_black.htm">
-  <img src="/img/agenda/1.jpg" style="width:100%;"></a>
-	<?php 
+  <img src="/img/agenda/1.jpg" style="width:100%;"></a>-->
+	
+  <div id="pic_slide">
+  <?php 
 	$_GET['position'] = 0;
 	include 'adm_galeria.php'
 	?>	
