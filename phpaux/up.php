@@ -4,39 +4,37 @@
 <head>
 <meta charset="utf-8">       
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+.videoWrapper {
+	position: relative;
+	padding-bottom: 56.25%; /* 16:9 */
+	padding-top: 25px;
+	height: 0;
+}
+.videoWrapper iframe {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+.video{
+    max-width:300px;
+}
+</style>
+
 </head>
 <body>
-
-<button id="bt-select" type="button">Select cliente</button><p>
-
-<button id="bt-update" type="button">Update cliente</button><p>
-
-<button id="bt-delete" type="button">Delete cliente</button><p>
-
-<button id="bt-insert" type="button">Insert cliente</button><p>
-
-<p><div id="agenda_container">
-    <div id="form_agenda">
-        Local:<br><input id="local_text" type="text" size="26" placeholder="digite o nome" required><br>
-        Data:<br><input id="date_text" type="date" value=""><br>
-        Hora:<br><input id="time_text" type="time" value="20:00" ><br>
-        Endereço:<br><input id="address_text" type="text" size="26" placeholder="digite o endereço"><br>
-        Imagem:<br><input id="pic_text" type="text" size="26" placeholder="selecione abaixo" readonly="true"><br>                  
-        <!--<input type="file" name="pic" accept="image/*">-->
-    </div>
-
-    <hr>
-    Registro:<br><input id="c_id" type="text" size="5" placeholder="0"><p>
-
-    <div id="show_list">
-        <h3 class="w3-large w3-padding-small">Lista de shows</h3>
-        <ul id="show-ul" class="w3-ul w3-small">
-            <!--<li class="w3-padding-small">10/03/1981 - Santa Brasa</li>-->           
-            
-        </ul>
-        <br>                
-    </div>
-  
+<div class="video">
+<div class="videoWrapper">
+    <!-- Copy & Pasted from YouTube -->
+    <iframe id="video-id" width="560" height="349" src="http://www.youtube.com/embed/iEVsOzn2xZU?rel=0&hd=1" frameborder="0"></iframe>
+</div>
+<h3 id="video-title"></h3>
+</div>
+<p>
+<div><img id="actual-thumb" src=""></div>
+<input type="button" name="teste" value="Teste" onclick="videoRequest();">
     
 <!--  Load jquery from cdn -->
 <script
@@ -49,204 +47,54 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
 <!--<script src="/js/jquery.form.js"></script>-->
 
+
 <script>
-data = [
-		"1", 
-		"Novo Evento", 
-		"Rua 1", 
-		"2017/03/01", 
-		"10:20:00", 
-		"porao.jpg"
-    ];
-showListData = [];
+    function changeVideo(newId){
+        var srcVideo = $('#video-id').attr('src');
+        var idInit = srcVideo.search('embed/') + 6;
+        var idEnd = srcVideo.search('rel=') - 1;
+        var actualId = srcVideo.substring(idInit, idEnd);        
+        //newId = 'Q0oIoR9mLwc';
+        srcVideo = srcVideo.replace(actualId, newId);
+        $('#video-id').attr('src', srcVideo);
 
-function command(dataStr, cbFunction){   
-    $.ajax({
-        type: "POST",
-        url: "set_agenda.php",
-        data: dataStr,
-        cache: false,
-
-        success: function(response){
-            //console.log(response);
-            cbFunction(response);            
-        }
-    });
-}
-
-$('#bt-select').click(function(){	
-    //data[0] = $('#c_id').val();//provisório
-	command({ra:data[0]}, selectShow);           
-});
-$('#bt-update').click(function(){
-	data[1] = $('#local_text').val();
-    data[3] = $('#date_text').val();
-    data[4] = $('#time_text').val();
-    data[2] = $('#address_text').val();
-    data[5] = $('#pic_text').val();
-    var jsonString = JSON.stringify(data);
-    command({ua:jsonString}, updateShow);	
-});
-$('#bt-delete').click(function(){
-    var message = "Você tem certeza que deseja Excluir o evento:\n\n";
-    var dt = formatDateTime(data[3], data[4]);
-    message += data[1] + '\n';
-    message += data[2] + '\n';
-    message += dt.date + ' às ' + dt.time;        
-    
-    if(confirm(message) == true){
-        command({da:data[0]}, deleteShow);        
-    }        
-});
-$('#bt-insert').click(function(){		
-    data[1] = $('#local_text').val();
-    data[3] = $('#date_text').val();
-    data[4] = $('#time_text').val();
-    data[2] = $('#address_text').val();
-    data[5] = $('#pic_text').val();
-    var jsonString = JSON.stringify(data);
-    command({ca:jsonString}, insertShow);    
-});
-
-//Callback Delete
-function deleteShow(response){
-    resp = JSON.parse(response);    
-    if('error' in resp){
-        console.log(resp);
+        var link = 'https://www.googleapis.com/youtube/v3/videos?id=';
+        link += newId;
+        link += '&key=AIzaSyApyjodUSvYUvqYFB3r41ebNpg_LVc9R9Q&fields=items';
+        link += '(id,snippet(title),statistics)&part=snippet,statistics';
+        titleRequest(link);   
+        setThumb('https://img.youtube.com/vi/'+ newId +'/3.jpg');     
     }
-    else{
-        var LAST_RECORD = "-1";
-        command({ra:LAST_RECORD}, selectShow);
-        LoadShowList();  
-        //TODO: mensagem de sucesso
-    }      
-}
 
-//Callback Select
-function selectShow(response){
-    resp = JSON.parse(response);
-    if('error' in resp){
-        //TODO: campo para mensagem de erro
-        console.log(resp);
+    function titleRequest(link){
+        $.ajax({
+            url: link            
+          }).done(function(response) {                 
+            if(response.items.length > 0){
+                var title = response.items[0].snippet.title;
+            }
+            $('#video-title').text(title);
+          });
     }
-    else if (resp.hasOwnProperty(length)){
-        data = Object.values(resp[0]);
-        //console.log(resp);    
-        updateTextBox(data);
-    }        
-}
 
-//Callback Insert
-function insertShow(response){
-    //console.log(response);
-    resp = JSON.parse(response);
-    if('error' in resp){
-        console.log(resp);
-        //TODO: criar campo para mensagem de erro
+    function videoRequest(){        
+        var id = 'Q0oIoR9mLwc';
+        changeVideo(id);        
     }
-    else{                
-        data[0] = resp.inserted_id;
-        LoadShowList();  
-        //TODO: criar campo para mensagem de sucesso
-    }        
-}
 
-//Callback Update
-function updateShow(response){    
-    resp = JSON.parse(response);
-    if('error' in resp){
-        console.log(resp);
-        //TODO: criar campo para mensagem de erro
+    function setThumb(url){
+        $('#actual-thumb').attr('src', url);
     }
-    else{
-        LoadShowList();          
-        //TODO: criar campo para mensagem de sucesso
-    }        
-}
 
-//CallBack to get show List
-function getShowList(response){
-    resp = JSON.parse(response);
-    if('error' in resp){
-        //TODO: campo para mensagem de erro
-        console.log(resp);
-    }
-    else if (resp.hasOwnProperty(length)){
-        showListData = [];
-        $("#show-ul").empty();
-
-        for(let i in resp){
-            showListData.push(resp[i].id);
-            var dt = formatDateTime(resp[i].date, "00:00:00");
-            var item = dt.date + " - " + resp[i].name;
-            $('#show-ul').append('<li>' + item + '</li>')
-        }
-    reloadListClick();
-    }        
-}
-
-//Update Textboxes on agenda changes
-function updateTextBox(data){    
-    $('#local_text').val(data[1]);
-    $('#date_text').val(data[3]);
-    $('#time_text').val(data[4]);
-    $('#address_text').val(data[2]);
-    $('#pic_text').val(data[5]);    
-}
-
-/**
- *Get the date time for brazilian format
- *
- *@param {String} date - the date in international format
- * [Example] 1980-12-29
- *@param {String} time [Example] 22:15:01
- *@returns {Object} dt with two keys: dt.date and dt.time
-  */
-function formatDateTime(date, time){
-    var d = new Date(date + 'T' + time);    
-    month = '' + (d.getMonth() + 1);    
-    day = '' + (d.getDate());
-    year = d.getFullYear();
-    hour = '' + d.getHours();
-    minute = '' + d.getMinutes(); 
-
-    if (month.length < 2) month = '0' + month;
-    if (day.length < 2) day = '0' + day;
-    if (hour.length < 2) hour = '0' + hour;
-    if (minute.length < 2) minute = '0' + minute;
-
-    var dt = {date:[day, month, year].join('/')};
-    dt.time = [hour, minute].join(':');    
-    return dt;    
-}
-
-//Load text boxes with last event recorded
-function firstTimeLoadAgenda(){
-    var LAST_RECORD = "-1";
-    command({ra:LAST_RECORD}, selectShow);
-}
-
-//load last 30 events in agenda to lista de shows
-//Call getshowList() as callback
-function LoadShowList(){
-    command({sl:true}, getShowList);   
-}
-
-//Reload click listener for Lista de Shows
-function reloadListClick(){
-    $('#show-ul li').off('click');
-    $('#show-ul li').click(function(){
-        //When clicked, update textboxes 
-        let eventId = $(this).index(); 
-        command({ra:showListData[eventId]}, selectShow);        
-    });
-}
-
-//Document Ready for first load of page
-$(function(){
-    firstTimeLoadAgenda();
-    LoadShowList();          
+    /*
+    First load of videos
+    */
+    $(function(){        
+        videoRequest();
+        
 });
+</script>
+
 
 </script>
 </body>
