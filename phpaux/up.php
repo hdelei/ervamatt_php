@@ -123,7 +123,7 @@ body{
     }
 
     //Ajax principal de cadastro e exclusão de videos
-    function videoAjaxRequest(dataStr, cbFunction){   
+    function videoAjaxRequest(dataStr, cbFunction){         
         $.ajax({
             type: "POST",
             url: "set_video.php",
@@ -138,9 +138,27 @@ body{
     }
 
     $('#bt-insert-video').click(function(){		
-        var youtubeID = $('#video-id-txt').val();                
-        //cv: create video
-        videoAjaxRequest({cv:youtubeID}, cbInsertVideo);            
+        var yText = $('#video-id-txt').val();
+        var arg = {url:yText};        
+        $.ajax({url: "youtubekey.php", data: arg, success: function(response){
+            resp = JSON.parse(response);   
+            //console.log(resp);  
+            if(resp.items.length > 0){
+                var youtArray = []; 
+                youtArray[0] = resp.items[0].id;
+                youtArray[1] = resp.items[0].snippet.title;  
+                var youtJson = JSON.stringify(youtArray);                
+
+                //cv: create video
+                videoAjaxRequest({cv:youtJson}, cbInsertVideo);
+            }            
+            else if('error' in resp){
+                $.notify(resp.error,"warn");
+            }
+            else{
+                $.notify("Link inválido","warn");
+            }
+        }});        
     });
 
     $('#bt-delete-video').click(function(){
@@ -172,7 +190,7 @@ body{
 
 
     //Callback: Insert Video
-    function cbInsertVideo(response){     
+    function cbInsertVideo(response){           
         resp = JSON.parse(response);        
         if('error' in resp){
             //console.log(resp);
@@ -185,8 +203,8 @@ body{
         else{                        
             $.notify("Video adicionado com sucesso.","success");
             $('#log-ul').append('<li class="w3-padding-small">Video adicionado com sucesso.</li>');	
-            loadVideoList();  
-            changeVideo(resp.video_key);
+            loadVideoList();
+            //changeVideo(videoData[1]);            
         }
     }
 
@@ -198,29 +216,34 @@ body{
     //Global var: Lista de videos
     videoListData = [];
     
+    //Global var: actual video
+    videoData = ['-1', 'QGNsLtOa3Uo', 'nome do video'];
+
     //callback: Lista de videos
     function cbGetVideoList(response){
-        resp = JSON.parse(response);
+        resp = JSON.parse(response);  
+        //console.log(resp);      
         if('error' in resp){
             $.notify(resp.error,"error");
             $('#log-ul').append('<li class="w3-padding-small">'+ resp.error +'</li>');	
         }
-        else if (resp.hasOwnProperty(length)){
+        else if (resp.id != ""){
             videoListData = [];
-            $("#video-ul").empty();
-        
+            $("#video-ul").empty();            
             for(let i in resp){
                 videoListData.push(resp[i].id);                
-                var item = resp[i].video_key;
-                //TODO: Obter os nomes dos videos
-                $('#video-ul').append('<li>' + item + '</li>')
-            }
+                var item = resp[i].title;                
+                $('#video-ul').append('<li>' + item + '</li>');                
+            }            
+            
+            videoData[0] = resp[0].id;
+            videoData[1] = resp[0].video_key;
+            videoData[2] = resp[0].title;
+
+            changeVideo(videoData[1]);
             reloadVideoListClick();
         }        
     }   
-    
-    //Global var: actual video
-    videoData = ['1', 'QGNsLtOa3Uo'];
 
     //Callback Select Video
     function selectVideo(response){
@@ -231,18 +254,18 @@ body{
         }
         else{
             var temp = videoData[1];
-            videoData = Object.values(resp[0]);            
+            videoData = Object.values(resp[0]);                        
             if(temp != videoData[1]){
                 changeVideo(videoData[1]);
             }            	
         }        
     }    
     
-    //Carregar o primeiro video
-    function videoRequest(){        
-        var id = 'Q0oIoR9mLwc';
-        changeVideo(id);        
-    }
+    // //Carregar o primeiro video
+    // function videoRequest(){        
+    //     var id = 'Q0oIoR9mLwc';
+    //     changeVideo(id);        
+    // }
 
     function setThumb(url){
         $('#actual-thumb').attr('src', url);
@@ -259,21 +282,18 @@ body{
     function reloadVideoListClick(){
         $('#video-ul li').off('click');
         $('#video-ul li').click(function(){
-            let videoId = $(this).index();            
+            let videoId = $(this).index();           
             
-            videoAjaxRequest({rv:videoListData[videoId]}, selectVideo);
-            
+            videoAjaxRequest({rv:videoListData[videoId]}, selectVideo);            
 	    });
     }
 
     /*
     First load of videos
     */
-    $(function(){
+    $(function(){        
         firstTimeLoadVideo();
         loadVideoList();        
-        videoRequest();
-        
     });
 </script>
 

@@ -6,8 +6,10 @@ $db = new Db();
 
 //CREATE VIDEO RECORD
 if(isset($_POST['cv'])){	
-	$video_key = $_POST['cv'];
-	if($video_key == ''){
+	$data = json_decode($_POST['cv']);	
+	//$video_key = $_POST['cv'][0];
+	//$video_title = $POST['cv'][1];
+	if($data[0] == '' || $data[1] == ''){
 		echo '{"error":"campo vazio!"}';
 		return;
 	}	
@@ -15,12 +17,14 @@ if(isset($_POST['cv'])){
 	$m_query = "INSERT INTO `youtube` 
 		(
 			`id`, 
-			`video_key`			
+			`video_key`	,
+			`title` 		
 		)
 		VALUES 
 		(
 			'', "
-            . $db->quote($video_key)."
+			. $db->quote($data[0]). ","
+			. $db->quote($data[1]). "
         );"; 
 			
 
@@ -59,7 +63,7 @@ elseif(isset($_POST['dv']) && is_numeric($_POST['dv'])){
 }
 //GET VIDEO LIST
 elseif(isset($_POST['sv']) && $_POST['sv'] == True){
-	$m_query = "SELECT `id`, `video_key` FROM `youtube`
+	$m_query = "SELECT `id`, `video_key`, `title` FROM `youtube`
 				ORDER BY `id` DESC
 			    LIMIT 30;";			    
 	
