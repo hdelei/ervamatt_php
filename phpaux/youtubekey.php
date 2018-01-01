@@ -24,7 +24,7 @@ if(isset($_GET['url'])){
     else{
         $apiURL = str_replace("SET_NEW_ID", $youtube_id, $apiURL);
         $content = file_get_contents($apiURL);
-
+        
         echo $content;
     }        
 }
