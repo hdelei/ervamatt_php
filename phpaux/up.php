@@ -22,19 +22,19 @@
         min-width: 260px;		
 		    flex: 1;		
     }
-    #video_list li{
-      cursor:pointer;
-    }
-    #video_list li:hover{
-      background-color: #408c45;
-      color:#FFF;
-      border-radius: 3px;
-    }
-	@media screen and (max-width:890px) { 
-		#video_list {			
-			min-width:250px;
-		}
+#video_list li{
+    cursor:pointer;
+}
+#video_list li:hover{
+    background-color: #408c45;
+    color:#FFF;
+    border-radius: 3px;
+}
+@media screen and (max-width:890px) { 
+	#video_list {			
+		min-width:250px;
 	}
+}
 .videoWrapper {
 	position: relative;
 	padding-bottom: 56.25%; /* 16:9 */
@@ -92,8 +92,7 @@ body{
 <!--<script src="/js/jquery.form.js"></script>-->
 
 
-<script>
-    
+<script>    
     linkForTitle = 'https://www.googleapis.com/youtube/v3/videos?id=SET_NEW_ID';
     linkForTitle += '&key=AIzaSyApyjodUSvYUvqYFB3r41ebNpg_LVc9R9Q&fields=items';
     linkForTitle += '(id,snippet(title),statistics)&part=snippet,statistics';
