@@ -1,4 +1,5 @@
 .htaccess
+users.ini
 config.ini
 connection_data.php
 restrito.php
