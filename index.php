@@ -380,10 +380,8 @@
 	<script type="text/javascript" src="dv_js/gallery.js"></script>    
 	<script type="text/javascript" src="js/hide_menu.js"></script>
 	
-	<!-- Make all agenda, historia and videos requests -->
-	<script type="text/javascript" src="js/ajax2.js"></script>
-	<!-- Load Youtube player -->
-	<script type="text/javascript" src="js/youtube_script.js"></script>
+	<!-- Make agenda, historia and videos requests -->
+	<script type="text/javascript" src="js/ajax2.js"></script>	
 	
 	<script type="text/javascript" src="js/jquery.lazyloadxt.min.js"></script>
 	
