@@ -1,3 +1,21 @@
+<?php
+
+$auth = parse_ini_file('users.ini');
+$valid_passwords = array ($auth['user1'] => $auth['pass1'], $auth['user2'] => $auth['pass2']);
+$valid_users = array_keys($valid_passwords);
+
+$user = $_SERVER['PHP_AUTH_USER'];
+$pass = $_SERVER['PHP_AUTH_PW'];
+
+$validated = (in_array($user, $valid_users)) && ($pass == $valid_passwords[$user]);
+
+if (!$validated) {
+  header('WWW-Authenticate: Basic realm="My Realm"');
+  header('HTTP/1.0 401 Unauthorized');
+  die ("Not authorized");
+}
+?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <title>ERVA MATT ADMIN PAINEL</title>
@@ -78,13 +96,60 @@
 		#show_list {			
 			min-width:250px;
 		}
+	}    
+  #agenda_container{
+    display:flex;
+    flex-wrap: wrap;        
+  }    
+  #video_list {        
+        max-height: 278px;		
+        padding:5px;                
+        background-color: #eaebed;
+        margin-left: 0;
+        margin-right: 3px;
+        margin-bottom: 5px;
+        border: 1px solid lightgray;
+        color:gray;    
+        overflow-x: auto;
+        min-width: 260px;		
+		    flex: 1;		
+    }
+    #video_list li{
+      cursor:pointer;
+    }
+    #video_list li:hover{
+      background-color: #408c45;
+      color:#FFF;
+      border-radius: 3px;
+    }
+	@media screen and (max-width:890px) { 
+		#video_list {			
+			min-width:250px;
+		}
 	}
-    
-    #agenda_container{
-        display:flex;
-        flex-wrap: wrap;
-        
-    }    
+  .videoWrapper {
+	position: relative;
+	padding-bottom: 56.25%; /* 16:9 */
+	padding-top: 25px;
+	height: 0;
+}
+.videoWrapper iframe {  
+  position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+.video{    
+  margin:auto;
+  max-width:400px;
+  min-width:150px;
+}
+.txt-boxes{
+  padding:7px 3px;
+  display:inline-block;  
+  vertical-align:middle;
+}
 
 </style>    
 </head>
@@ -222,19 +287,30 @@
 
 <div id="youtube" class="w3-container w3-padding-large w3-section w3-light-grey">
   <h1 class="w3-jumbo">Vídeos</h1>
-  <p class="w3-xlarge">Sua lista de vídeos do Youtube</p>
-  <a class="w3-button w3-theme w3-hover-white" href="/css/default.asp">LEARN CSS</a>
-  <a class="w3-button w3-theme w3-hover-white" href="/cssref/default.asp">CSS REFERENCE</a>
-  <p class="w3-large">
-  <p><div class="w3-code cssHigh notranslate">
-  body {<br>
-      background-color: #d0e4fe;<br>}<br>h1 {<br>
-      color: orange;<br>
-      text-align: center;<br>}<br>p {<br>
-      font-family: "Times New Roman";<br>
-      font-size: 20px;<br>}
-  </div>
-  <a class="w3-button w3-theme w3-hover-white" href="/css/tryit.asp?filename=trycss_default" target="_blank">Try it Yourself</a>
+  <p class="w3-large">Cadastre seus vídeos</p>
+  
+  <p class="w3-large"><p>
+    <div id="agenda_container">
+      <div id="form_agenda">                
+          <div class="video">
+            <div class="videoWrapper">    
+              <iframe id="video-id" width="560" height="349" 
+              src="http://www.youtube.com/embed/QGNsLtOa3Uo?rel=0&hd=1" frameborder="0"></iframe>                
+            </div>
+            <h3 id="video-title">Teste de titulo</h3><br>
+            <a id="bt-delete-video" class="w3-button w3-theme-red w3-hover-white">Deletar</a>
+          </div>
+        </div>
+      <div id="video_list">
+        <h3 class="w3-large w3-padding-small">Lista de Vídeos</h3>
+        <ul id="video-ul" class="w3-ul w3-small">
+          <li class="w3-padding-small video-list">Nenhum vídeo cadastrado</li>
+        </ul>
+        <br>                
+      </div>
+    </div>     
+    <input id="video-id-txt" class="txt-boxes" type="text" size="35" placeholder="Cole o link aqui">
+    <a id="bt-insert-video" class="w3-button w3-theme w3-hover-white">Incluir</a><br>
 </div>
 
 <footer class="w3-container w3-padding-large w3-light-grey w3-justify w3-opacity">
@@ -294,6 +370,5 @@ function openNav(id) {
 	<script>
 		galleryPosition = 0;
 	</script>
-
 </body>
 </html> 
