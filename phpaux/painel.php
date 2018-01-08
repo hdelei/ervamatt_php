@@ -315,8 +315,11 @@ if (!$validated) {
 
 <footer class="w3-container w3-padding-large w3-light-grey w3-justify w3-opacity">
   <p><nav>
-  <a href="#" target="_blank">FORUM</a> |
-  <a href="#" target="_top">ABOUT</a>
+  <div class="w3-button w3-hover-black" style="position:static; padding:2px; color:#090000; margin:auto;">
+	  Desenvolvido por Dev<span style="color:green; font-weight: bold;">O</span>n
+  </div>
+  <!--<a href="#" target="_blank">FORUM</a> |
+  <a href="#" target="_top">ABOUT</a>-->
   </nav></p>
 </footer>
 
@@ -370,5 +373,6 @@ function openNav(id) {
 	<script>
 		galleryPosition = 0;
 	</script>
+
 </body>
 </html> 
